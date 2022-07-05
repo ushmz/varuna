@@ -1,55 +1,42 @@
 {
-  "name": "vanura",
+  "name": "varuna",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "gray-matter": "^4.0.3",
+    "marked": "^4.0.17",
+    "next": "12.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@vitejs/plugin-react": "^1.3.2",
+    "@braintree/sanitize-url": "^6.0.0",
+    "@tailwindcss/line-clamp": "^0.4.0",
+    "@types/marked": "^4.0.3",
+    "@types/node": "18.0.1",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
+    "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "stylelint": "^14.9.1",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-processor-html": "^1.0.0",
-    "typescript": "^4.4.2",
-    "vite": "^2.9.13",
-    "vite-tsconfig-paths": "^3.5.0",
-    "web-vitals": "^2.1.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "tailwindcss": "^3.1.4",
+    "typescript": "4.7.4"
   }
 }

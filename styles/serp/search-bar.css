@@ -1,0 +1,110 @@
+.container {
+  margin: 12px 0 0 165px;
+  width: 692px;
+  display: flex;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  height: 44px;
+  border-radius: 24px;
+  z-index: 3;
+}
+
+.container:hover {
+  box-shadow: 0 2px 6px 3px rgb(64 60 67 / 16%);
+}
+
+input.search-bar {
+  height: 45px !important;
+  width: 580px;
+  font: 16px arial, sans-serif;
+  line-height: 40px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: rgba(0 0 0 / 87%);
+  word-wrap: break-word;
+  display: flex;
+  flex: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input.search-bar:focus {
+  outline: none !important;
+  border-color: transparent;
+  box-shadow: 0 rgba(0 0 0 / 0%);
+}
+
+svg.clear-icon {
+  color: #70757a;
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+svg.search-icon {
+  color: #4285f4;
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+button.query-input-button {
+  flex: 0 0 auto;
+  padding-right: 10px;
+  height: 44px;
+  width: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.divider {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-left: 1px solid #dfe1e5;
+}
+
+div.query-input-position {
+  flex: 1;
+  display: flex;
+  padding-left: 16px;
+}
+
+div.icons-position {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  flex-direction: row;
+}
+
+div.clean-icon-position {
+  display: flex;
+  flex: 1 0 auto,;
+  cursor: pointer,;
+  align-items: center,;
+  border: 0,;
+  background: transparent,;
+  outline: none,;
+  padding: 0 8px,;
+  line-height: 44px;
+}
+
+div.submit-icon-position {
+  background: none;
+  height: 24px;
+  width: 24px;
+  margin: auto;
+}
+
+span.icon-appearance {
+  margin-right: 12px;
+  height: 100%;
+  vertical-align: middle;
+  display: inline-block;
+  fill: currentcolor;
+  line-height: 24px;
+  position: relative;
+  width: 24px;
+}
