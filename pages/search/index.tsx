@@ -3,6 +3,7 @@ import { SearchBar } from "@components/Serp/SearchBar";
 import { SearchResult } from "@components/Serp/SearchResult";
 import { SerpPagination } from "@components/Serp/Pagination";
 import { NextPage } from "next";
+import { PrivacyAttribute } from "@components/Serp/PrivacyAttribute";
 
 const props = {
   title: "Sample page title",
@@ -47,7 +48,7 @@ const Search: NextPage<Props> = () => {
                 }}
               >
                 <div className="suggestion-area">
-                  <p>Suggestion Area</p>
+                  <PrivacyAttribute name="Attribute" />
                 </div>
               </SearchResult>
             </div>
