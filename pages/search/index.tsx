@@ -3,26 +3,18 @@ import { SearchBar } from "@components/Serp/SearchBar";
 import { SearchResult } from "@components/Serp/SearchResult";
 import { SerpPagination } from "@components/Serp/Pagination";
 import { NextPage } from "next";
-import { PrivacyAttribute } from "@components/Serp/PrivacyAttribute";
-
-const props = {
-  title: "Sample page title",
-  url: "https://example.com/",
-  snippet:
-    "Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet Smaple snippet",
-  suggestion: {
-    title: "Sample suggestion title",
-    child: <p>Sample suggestion element</p>,
-  },
-};
+import { PrivacyAttribute } from "@components/Attributes";
+import { getSearchResults, SearchPage } from "@lib/api/external";
 
 type Props = {};
 
 const Search: NextPage<Props> = () => {
   const [offset, setOffset] = useState<number>(0);
+  const [pages, setPages] = useState<SearchPage[]>([]);
 
   useEffect(() => {
     // [TODO] Fetch search pages
+    getSearchResults(1, offset).then((r) => setPages(r));
     window.scrollTo(0, 0);
   }, [offset]);
 
@@ -35,38 +27,27 @@ const Search: NextPage<Props> = () => {
       </header>
 
       <div style={styles.serpArea}>
-        {[1, 2, 3].map((_, idx) => {
+        {pages.map((page, idx) => {
           return (
             <div key="srs-${idx}" style={{ marginTop: "20px", marginBottom: "10px" }}>
               <SearchResult
                 key={idx}
                 title={"Sample search result component with suggestion area"}
-                url={props.url}
-                snippet={props.snippet}
+                url={page.url}
+                snippet={page.snippet}
                 sendClickLog={() => {
                   return;
                 }}
               >
                 <div className="suggestion-area">
-                  <PrivacyAttribute name="Attribute" />
+                  <div className="flex flex-row gap-3">
+                    {page.attributes.map((a) => (
+                      <PrivacyAttribute name={a.name} value={a.value} color={a.color} />
+                    ))}
+                  </div>
                 </div>
               </SearchResult>
             </div>
-          );
-        })}
-
-        {/* If nothing passed for `suggestion` prop, nothing appears as a suggestion component. */}
-        {[1, 2, 3].map((_, idx) => {
-          return (
-            <SearchResult
-              key={idx}
-              title={"Sample search result component without suggestion area"}
-              url={props.url}
-              snippet={props.snippet}
-              sendClickLog={() => {
-                return;
-              }}
-            />
           );
         })}
         <SerpPagination maxPage={10} offset={offset} setOffset={setOffset} />
