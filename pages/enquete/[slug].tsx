@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { getAllEnquetePaths, getEnqueteBySlug } from "@lib/api";
+import { getAllEnquetePaths, getEnqueteBySlug } from "@lib/api/content";
 import markdownToHTML from "@lib/markdownToHTML";
 import styles from "@styles/Home.module.css";
 import markdownStyle from "@styles/markdown.module.css";

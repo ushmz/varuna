@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Steps from "@components/Steps";
-import { getTaskBySlug, getAllTaskPaths } from "@lib/api";
+import { getTaskBySlug, getAllTaskPaths } from "@lib/api/content";
 import markdownToHTML from "@lib/markdownToHTML";
 import styles from "@styles/Home.module.css";
 import markdownStyle from "@styles/markdown.module.css";
