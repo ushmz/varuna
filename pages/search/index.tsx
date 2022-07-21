@@ -4,7 +4,8 @@ import { SearchResult } from "@components/Serp/SearchResult";
 import { SerpPagination } from "@components/Serp/Pagination";
 import { NextPage } from "next";
 import { PrivacyAttribute } from "@components/Attributes";
-import { getSearchResults, SearchPage } from "@lib/api/external";
+import axios from "axios";
+import type { SearchPage, SerpResponse } from "@pages/api/search";
 
 type Props = {};
 
@@ -13,8 +14,11 @@ const Search: NextPage<Props> = () => {
   const [pages, setPages] = useState<SearchPage[]>([]);
 
   useEffect(() => {
-    // [TODO] Fetch search pages
-    getSearchResults(1, offset).then((r) => setPages(r));
+    axios
+      .get<SerpResponse>(`/api//search`)
+      .then((r) => r.data)
+      .then((r) => setPages(r.data))
+      .catch((e) => console.log(e));
     window.scrollTo(0, 0);
   }, [offset]);
 
@@ -29,23 +33,25 @@ const Search: NextPage<Props> = () => {
       <div style={styles.serpArea}>
         {pages.map((page, idx) => {
           return (
-            <div key="srs-${idx}" style={{ marginTop: "20px", marginBottom: "10px" }}>
+            <div key={`srs-${idx}`} style={{ marginTop: "20px", marginBottom: "10px" }}>
               <SearchResult
                 key={idx}
-                title={"Sample search result component with suggestion area"}
+                title={page.title}
                 url={page.url}
                 snippet={page.snippet}
                 sendClickLog={() => {
                   return;
                 }}
               >
-                <div className="suggestion-area">
-                  <div className="flex flex-row gap-3">
-                    {page.attributes.map((a) => (
-                      <PrivacyAttribute name={a.name} value={a.value} color={a.color} />
-                    ))}
+                {page.attributes.length > 0 && (
+                  <div className="suggestion-area">
+                    <div className="flex flex-row gap-3">
+                      {page.attributes.map((a, i) => (
+                        <PrivacyAttribute key={`srs-attr-${i}`} name={a.name} value={a.value} color={a.color} />
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </SearchResult>
             </div>
           );
