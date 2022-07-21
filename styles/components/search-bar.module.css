@@ -13,7 +13,7 @@
   box-shadow: 0 2px 6px 3px rgb(64 60 67 / 16%);
 }
 
-input.search-bar {
+.bar {
   height: 45px !important;
   width: 580px;
   font: 16px arial, sans-serif;
@@ -28,13 +28,13 @@ input.search-bar {
   -webkit-tap-highlight-color: transparent;
 }
 
-input.search-bar:focus {
+.bar:focus {
   outline: none !important;
   border-color: transparent;
   box-shadow: 0 rgba(0 0 0 / 0%);
 }
 
-svg.clear-icon {
+.clear {
   color: #70757a;
   display: block;
   height: 100%;
@@ -42,7 +42,7 @@ svg.clear-icon {
   overflow: hidden;
 }
 
-svg.search-icon {
+.search {
   color: #4285f4;
   display: block;
   height: 100%;
@@ -50,56 +50,43 @@ svg.search-icon {
   overflow: hidden;
 }
 
-button.query-input-button {
+.queryinput {
   flex: 0 0 auto;
-  padding-right: 10px;
   height: 44px;
-  width: 44px;
+  width: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
 .divider {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin: 8px 10px;
   border-left: 1px solid #dfe1e5;
 }
 
-div.query-input-position {
+.queryinputposition {
   flex: 1;
   display: flex;
   padding-left: 16px;
 }
 
-div.icons-position {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: stretch;
-  flex-direction: row;
-}
-
-div.clean-icon-position {
-  display: flex;
-  flex: 1 0 auto,;
-  cursor: pointer,;
-  align-items: center,;
-  border: 0,;
-  background: transparent,;
-  outline: none,;
-  padding: 0 8px,;
-  line-height: 44px;
-}
-
-div.submit-icon-position {
+.cleaniconposition {
   background: none;
-  height: 24px;
+  height: 32px;
   width: 24px;
+  align-items: center,;
   margin: auto;
 }
 
-span.icon-appearance {
-  margin-right: 12px;
+.submiticonposition {
+  background: none;
+  height: 32px;
+  width: 24px;
+  align-items: center,;
+  margin: auto;
+}
+
+.iconappearance {
   height: 100%;
   vertical-align: middle;
   display: inline-block;
@@ -107,4 +94,5 @@ span.icon-appearance {
   line-height: 24px;
   position: relative;
   width: 24px;
+  margin-right: 12px;
 }

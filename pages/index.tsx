@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { getTopPageContent } from "@lib/api";
 import markdownToHTML from "@lib/markdownToHTML";
 import { setAssignedTasks } from "@lib/storage";
-import styles from "@styles/Home.module.css";
+import styles from "@styles/pages/home.module.css";
 import markdownStyle from "@styles/markdown.module.css";
 
 type Props = {

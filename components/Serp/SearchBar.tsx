@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "@styles/components/search-bar.module.css";
 
 type SearchHeaderProps = {
   query: string;
@@ -8,33 +9,32 @@ export const SearchBar: React.FC<SearchHeaderProps> = () => {
   const [query, setQuery] = useState<string>("");
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <form action="/" method="GET">
         <div style={{ display: "flex" }}>
-          <div className="query-input-position">
-            <input className="search-bar" type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
-            <button type="button" className="query-input-button" aria-label="検索" onClick={() => setQuery("")}>
-              <div className="icons-position">
-                <div className="clear-icon-position">
-                  <span className="icon-appearance">
-                    <svg
-                      className="clear-icon"
-                      focusable="false"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d={CROSS_SVG_PATH}></path>
-                    </svg>
-                  </span>
-                </div>
+          <div className={styles.queryinputposition}>
+            <input className={styles.bar} type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+            <button type="button" className={styles.queryinput} aria-label="検索" onClick={() => setQuery("")}>
+              <div className={styles.cleaniconposition}>
+                <span className={styles.iconappearance}>
+                  <svg
+                    className={styles.clear}
+                    focusable="false"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d={CROSS_SVG_PATH}></path>
+                  </svg>
+                </span>
               </div>
             </button>
           </div>
-          <div className="divider" />
-          <button type="submit" className="query-input-button" aria-label="検索">
-            <div className="submit-icon-position">
-              <span className="icon-appearance">
-                <svg className="search-icon" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <div className={styles.divider} />
+
+          <button type="submit" className={styles.queryinput} aria-label="検索">
+            <div className={styles.submiticonposition}>
+              <span className={styles.iconappearance}>
+                <svg className={styles.search} focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d={SEARCH_SVG_PATH}></path>
                 </svg>
               </span>

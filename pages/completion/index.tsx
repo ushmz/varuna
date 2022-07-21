@@ -1,5 +1,5 @@
 import styles from "@styles/Home.module.css";
-import completionStyles from "@styles/completion.module.css";
+import completionStyles from "@styles/pages/completion.module.css";
 import Head from "next/head";
 import { NextPage } from "next";
 
