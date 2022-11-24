@@ -2,7 +2,7 @@ module.exports = {
   content: ["./components/**/*.tsx", "./pages/**/*.tsx"],
   darkMode: "class",
   important: true,
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [require("@tailwindcss/line-clamp"), require("daisyui")],
   theme: {
     extend: {
       colors: {
@@ -40,5 +40,8 @@ module.exports = {
         medium: "0 8px 30px rgba(0, 0, 0, 0.12)",
       },
     },
+  },
+  daisyui: {
+    themes: ["corporate"],
   },
 };

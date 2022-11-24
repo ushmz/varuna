@@ -1,0 +1,20 @@
+.search-bar-area {
+  background: #fff;
+  height: 69px;
+  left: 0;
+  position: fixed;
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
+  top: 0;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  min-width: 1261px;
+  z-index: 3;
+}
+.serparea: {
+  clear: both;
+  position: relative;
+  margintop: 100px;
+  marginleft: 180px;
+  width: 652px;
+}

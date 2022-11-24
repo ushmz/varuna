@@ -1,0 +1,43 @@
+.nudge {
+  margin-top: 10px;
+  padding: 0 15px 8px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  position: relative;
+  transition: all 150ms ease-in-out;
+  transform-origin: top;
+}
+
+.suggestion-title {
+  margin: 8px 0;
+  color: rgba(0 0 0 / 60%);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.ratio-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ratio-column {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.ratio-category {
+  margin-left: 0;
+  color: rgba(90 165 90 / 100%);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.ratio {
+  margin-left: 0;
+  color: rgba(0 0 0 / 57%);
+  font-size: 14px;
+  line-height: 1.2;
+}

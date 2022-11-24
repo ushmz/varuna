@@ -6,9 +6,9 @@
   max-width: 380px;
   border: black;
   border-radius: 1rem;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 1px 1px rgba(0 0 0 / 30%);
 }
 
-.cardContent {
+.card-content {
   margin: auto;
 }

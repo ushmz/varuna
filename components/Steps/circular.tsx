@@ -22,7 +22,7 @@ export const CircularStep = ({ variant }: StepProps) => {
   } else if (variant === "current") {
     return (
       <div className="w-6 h-6 border-2 border-blue-500 rounded-full grid">
-        <div className="justify-self-center w-2 h-2 mt-1.5 bg-blue-500 rounded-full" />
+        <div className=" justify-self-center w-2 h-2 bg-blue-500 rounded-full" />
       </div>
     );
   }

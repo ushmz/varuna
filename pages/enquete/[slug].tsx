@@ -1,40 +1,55 @@
 import Head from "next/head";
-import Link from "next/link";
 import { getAllEnquetePaths, getEnqueteBySlug } from "@lib/api/content";
 import markdownToHTML from "@lib/markdownToHTML";
-import styles from "@styles/Home.module.css";
 import markdownStyle from "@styles/markdown.module.css";
 import { NextPage } from "next";
+import StepCard from "@components/StepCard";
+import { useState } from "react";
+import NavigationButton from "@components/NavigationButton";
 
 type Props = {
   title: string;
   slug: string;
   url: string;
+  step: number;
   nextPath: string;
   content: string;
 };
 
 const Enquete: NextPage<Props> = (props: Props) => {
+  const [isEnqueteClicked, setClicked] = useState<boolean>(false);
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>props.title</title>
+        <title>{props.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className={styles.title}>{props.title}</h1>
-        <div className={markdownStyle["markdown"]} dangerouslySetInnerHTML={{ __html: props.content }} />
-        <div className="mt-16">
-          <Link href={props.nextPath || "#"} as={props.nextPath || "#"}>
-            <a>
+      <main>
+        <div className="md:grid md:grid-cols-3">
+          <div className="invisible md:visible md:mt-16 md:col-span-1">
+            <StepCard step={props.step} />
+          </div>
+          <div className="md:col-span-2">
+            <div className={markdownStyle["markdown"]} dangerouslySetInnerHTML={{ __html: props.content }} />
+            <div className="mt-8 text-center">
               <button
-                type="submit"
-                className="h-[50px] w-[175px] bg-blue-500 hover:bg-blue-700 text-white px-2 rounded"
+                className={`btn ${isEnqueteClicked ? "btn-disabled" : "btn-primary"}`}
+                onClick={() => setClicked(true)}
               >
-                {false ? "Loader" : "次へ"}
+                アンケートページへ
               </button>
-            </a>
-          </Link>
+            </div>
+            <div className="mt-32 text-right">
+              {isEnqueteClicked ? (
+                <NavigationButton href={props.nextPath} ready={isEnqueteClicked} title="検索タスク" />
+              ) : (
+                <div className="tooltip tooltip-warning" data-tip="アンケートに回答してください">
+                  <NavigationButton href={props.nextPath} ready={isEnqueteClicked} title="検索タスク" />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -58,7 +73,7 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const enquete = getEnqueteBySlug(params.slug, ["slug", "title", "url", "nextPath", "content"]);
+  const enquete = getEnqueteBySlug(params.slug, ["slug", "title", "url", "step", "nextPath", "content"]);
 
   const htmlContent = await markdownToHTML(enquete.content);
   return {
@@ -66,6 +81,7 @@ export async function getStaticProps({ params }: Params) {
       slug: enquete.slug,
       title: enquete.title,
       url: enquete.url,
+      step: enquete.step,
       nextPath: enquete.nextPath,
       content: htmlContent,
     },
