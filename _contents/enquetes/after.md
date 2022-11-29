@@ -3,7 +3,9 @@ slug: "after"
 title: "事後アンケート"
 url: "https://example.com"
 step: 3
-nextPath: "/code"
+forward:
+  title: "完了コード発行"
+  url: "/code"
 ---
 
 ## 事後アンケート

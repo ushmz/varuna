@@ -3,7 +3,9 @@ slug: "before"
 title: "事前アンケート"
 url: "https://example.com"
 step: 1
-nextPath: "/task/1"
+forward:
+  title: "検索タスク"
+  url: "/task"
 ---
 
 ## 事前アンケート
