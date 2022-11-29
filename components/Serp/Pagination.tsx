@@ -1,9 +1,26 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 type PaginationProps = {
   maxPage: number;
   offset: number;
-  setOffset: Dispatch<SetStateAction<number>>;
+};
+
+export const Pagination: React.FC<PaginationProps> = (props) => {
+  return (
+    <div className="btn-group">
+      {Array.from({ length: props.maxPage }, (_, k) => k).map((v) => {
+        return (
+          <a
+            key={`go-to-offset-${v}`}
+            href={`/search?offset=${v}`}
+            className={v == props.offset ? "btn btn-active" : "btn btn-ghost"}
+          >
+            {v + 1}
+          </a>
+        );
+      })}
+    </div>
+  );
 };
 
 export const SerpPagination: React.FC<PaginationProps> = (props) => {
@@ -14,16 +31,11 @@ export const SerpPagination: React.FC<PaginationProps> = (props) => {
           <tr style={styles.parentRow}>
             {Array.from({ length: props.maxPage }, (_, k) => k).map((v, idx) => {
               return (
-                <td key={idx}>
-                  <button
-                    style={v === props.offset ? styles.currentPageText : styles.pageText}
-                    onClick={() => props.setOffset(v)}
-                  >
-                    {/* If you'd like to display image like google search, insert here. */}
-                    {/* <span style={styles.paginateItemImage}></span> */}
-                    {v + 1}
-                  </button>
-                </td>
+                <a href={`/search?offset=${v}`}>
+                  <td key={idx}>
+                    <button style={v === props.offset ? styles.currentPageText : styles.pageText}>{v + 1}</button>
+                  </td>
+                </a>
               );
             })}
           </tr>

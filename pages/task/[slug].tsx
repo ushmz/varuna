@@ -12,7 +12,10 @@ type Props = {
   query?: string;
   title?: string;
   step: number;
-  nextPath: string;
+  forward: {
+    title: string;
+    url: string;
+  };
   content: string;
 };
 
@@ -43,53 +46,53 @@ const Task: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="md:grid md:grid-cols-3">
-          <div className="invisible md:visible md:mt-16 md:col-span-1">
-            <StepCard step={props.step} />
+        <div className="invisible md:visible md:mt-8">
+          <StepCard step={props.step} />
+        </div>
+        {props.title && (
+          <div className={markdownStyle["markdown"]}>
+            <h2>{props.title}</h2>
           </div>
-          <div className="md:col-span-2">
-            {props.title && (
-              <div className={markdownStyle["markdown"]}>
-                <h2>{props.title}</h2>
-              </div>
-            )}
-            <div className={markdownStyle["markdown"]} dangerouslySetInnerHTML={{ __html: props.content }} />
-            <div>
-              <button className="btn btn-primary" onClick={() => setClicked(true)}>
-                検索を始める
-              </button>
-            </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span>サービスのURL（必須）</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-bordered w-full max-w-xs"
-                value={answeredURL}
-                onChange={(e) => setURL(e.target.value)}
-              />
-              <label className="label">
-                <span>理由</span>
-              </label>
-              <textarea
-                placeholder=""
-                className="textarea textarea-bordered h-24 w-full max-w-xs"
-                value={answeredReason}
-                onChange={(e) => setReason(e.target.value)}
-              />
-            </div>
-            <div className="mt-32 text-right">
-              {ready() ? (
-                <NavigationButton href={props.nextPath} ready={ready()} title="事後アンケート" />
-              ) : (
-                <div className="tooltip tooltip-warning" data-tip={wanrMsg()}>
-                  <NavigationButton href={props.nextPath} ready={ready()} title="事後アンケート" />
-                </div>
-              )}
-            </div>
+        )}
+        <div className={markdownStyle["markdown"]} dangerouslySetInnerHTML={{ __html: props.content }} />
+        <div className="mt-8 text-center">
+          <a target="_blank" rel="noreferrer" href="/search">
+            <button className="btn btn-primary" onClick={() => setClicked(true)}>
+              検索を始める
+            </button>
+          </a>
+        </div>
+        <div className="text-center">
+          <div className="form-control">
+            <label className="label">
+              <span>サービスのURL（必須）</span>
+            </label>
+            <input
+              type="text"
+              placeholder="選択したウェブサービスのURLを入力"
+              className="input input-bordered"
+              value={answeredURL}
+              onChange={(e) => setURL(e.target.value)}
+            />
+            <label className="label">
+              <span>理由</span>
+            </label>
+            <textarea
+              placeholder="選択した理由を入力"
+              className="textarea textarea-bordered h-24"
+              value={answeredReason}
+              onChange={(e) => setReason(e.target.value)}
+            />
           </div>
+        </div>
+        <div className="mt-32 text-right">
+          {ready() ? (
+            <NavigationButton href={props.forward.url} ready={ready()} title={props.forward.title} />
+          ) : (
+            <div className="tooltip tooltip-warning" data-tip={wanrMsg()}>
+              <NavigationButton href={props.forward.url} ready={ready()} title={props.forward.title} />
+            </div>
+          )}
         </div>
       </main>
     </div>
@@ -113,7 +116,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: Params) {
-  const task = getTaskBySlug(params.slug, ["id", "query", "title", "step", "nextPath", "content"]);
+  const task = getTaskBySlug(params.slug, ["id", "query", "title", "step", "forward", "content"]);
 
   const htmlContent = await markdownToHTML(task.content);
   return {
@@ -122,7 +125,7 @@ export async function getStaticProps({ params }: Params) {
       query: task.query,
       title: task.title,
       step: task.step,
-      nextPath: task.nextPath,
+      forward: task.forward,
       content: htmlContent,
     },
   };

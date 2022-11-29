@@ -3,7 +3,6 @@ import Head from "next/head";
 import React from "react";
 import { referrer } from "@lib/config";
 import markdownStyle from "@styles/markdown.module.css";
-import ReactTooltip from "react-tooltip";
 
 type Props = {
   code: string;
@@ -19,11 +18,14 @@ const Code: NextPage<Props> = (props) => {
       </Head>
       <main>
         <div className="mx-auto my-8">
-          <div className="card rounded-lg w-72 shadow-lg bg-slate-100">
-            <div className="card-body text-center">
-              <span className="text-3xl">{props.code}</span>
+          <div className="mb-8 text-3xl">タスクへのご協力ありがとうございました。</div>
+          <div className="card rounded-lg shadow-lg bg-slate-100">
+            <div className="card-title">
+              <div className="my-1 text-3xl">あなたの完了コードは</div>
             </div>
-
+            <div className="card-body text-center">
+              <span className="text-4xl font-bold">{props.code}</span>
+            </div>
             {/*
             <div className="card-actions justify-end">
               <button
@@ -47,6 +49,9 @@ const Code: NextPage<Props> = (props) => {
                 <ReactTooltip effect="solid" delayHide={1000} />
             </div>
             */}
+            <div className="justify-end card-actions">
+              <div className="my-1 text-3xl">です</div>
+            </div>
           </div>
         </div>
 
