@@ -75,7 +75,7 @@ const Task: NextPage<Props> = (props) => {
               onChange={(e) => setURL(e.target.value)}
             />
             <label className="label">
-              <span>理由</span>
+              <span>上記のURLを選択した理由</span>
             </label>
             <textarea
               placeholder="選択した理由を入力"

@@ -2,15 +2,19 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { ChangeEvent, useState } from "react";
-import { getTopPageContent } from "@lib/api";
+import { getTopPageContent } from "@lib/api/content";
+import { assignTask, simplifiedSignIn } from "@lib/api/user";
 import markdownToHTML from "@lib/markdownToHTML";
-import { setAssignedTasks } from "@lib/storage";
 import styles from "@styles/pages/home.module.css";
 import markdownStyle from "@styles/markdown.module.css";
+import { setAssignment, setUserInfo } from "@lib/storage";
 
 type Props = {
   csName: string;
-  nextPath: string;
+  forward: {
+    title: string;
+    url: string;
+  };
   content: string;
 };
 
@@ -57,21 +61,23 @@ const Home: NextPage<Props> = (props) => {
               ユーザ名は半角英数字と記号 (-_) を用いて入力してください
             </p>
             <div className="mt-16">
-              <Link href={props.nextPath || "#"} as={props.nextPath || "#"}>
+              <Link href={props.forward.url || "#"} as={props.forward.url || "#"}>
                 <a>
                   <button
                     onClick={() => {
-                      fetch("/api/user", {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ externalID: externalID }),
-                      })
-                        .then((r) => r.json())
-                        .then((d) => {
-                          setAssignedTasks(d["tasks"]);
-                        });
+                      /* simplifiedSignIn(externalID).then((r) => {
+                        setUserInfo(r);
+                        assignTask(r.id).then((a) => setAssignment(a));
+                      }); */
+                      setUserInfo({
+                        id: 999,
+                        externalID: externalID,
+                        token: "token",
+                      });
+                      setAssignment({
+                        taskID: 1,
+                        condition: "purpose",
+                      });
                     }}
                     type="submit"
                     className="h-[50px] w-[175px] bg-blue-500 hover:bg-blue-700 text-white px-2 rounded"
@@ -92,13 +98,13 @@ export default Home;
 
 export const getStaticProps = async () => {
   const CROWDSOURCING_SITE_NAME = process.env.CROWDSOURCING_SITE_NAME || "";
-  const top = getTopPageContent(["title", "nextPath", "content"]);
+  const top = getTopPageContent(["title", "forward", "content"]);
   const htmlContent = await markdownToHTML(top.content);
 
   return {
     props: {
       csName: CROWDSOURCING_SITE_NAME,
-      nextPath: top.nextPath,
+      forward: top.forward,
       content: htmlContent,
     },
   };

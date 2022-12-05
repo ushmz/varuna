@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { getAllEnquetePaths, getEnqueteBySlug } from "@lib/api/content";
+import { getEnqueteBySlug } from "@lib/api/content";
 import markdownToHTML from "@lib/markdownToHTML";
 import markdownStyle from "@styles/markdown.module.css";
 import { NextPage } from "next";
@@ -19,7 +19,7 @@ type Props = {
   content: string;
 };
 
-const Enquete: NextPage<Props> = (props: Props) => {
+const PostEnquete: NextPage<Props> = (props: Props) => {
   const [isEnqueteClicked, setClicked] = useState<boolean>(false);
 
   return (
@@ -55,24 +55,10 @@ const Enquete: NextPage<Props> = (props: Props) => {
   );
 };
 
-export default Enquete;
+export default PostEnquete;
 
-export async function getStaticPaths() {
-  const paths = getAllEnquetePaths();
-  return {
-    paths: paths,
-    fallback: false,
-  };
-}
-
-type Params = {
-  params: {
-    slug: string;
-  };
-};
-
-export async function getStaticProps({ params }: Params) {
-  const enquete = getEnqueteBySlug(params.slug, ["slug", "title", "url", "step", "forward", "content"]);
+export async function getStaticProps() {
+  const enquete = getEnqueteBySlug("post", ["slug", "title", "url", "step", "forward", "content"]);
 
   const htmlContent = await markdownToHTML(enquete.content);
   return {
