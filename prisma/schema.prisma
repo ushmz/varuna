@@ -1,0 +1,32 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Condition {
+    id     Int     @id @default(autoincrement())
+    name   String
+    groups Group[]
+}
+
+model Task {
+    id          Int     @id @default(autoincrement())
+    title       String
+    query       String
+    description String
+    groups      Group[]
+}
+
+model Group {
+    conditionID Int
+    condition   Condition @relation(fields: [conditionID], references: [id])
+    taskID      Int
+    task        Task      @relation(fields: [taskID], references: [id])
+    counts      Int
+
+    @@id([conditionID, taskID])
+}
