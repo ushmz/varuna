@@ -8,11 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "prisma": {
-    "seed": "ts-node --project prisma/tsconfig-seed.json prisma/seed.ts"
-  },
   "dependencies": {
-    "@prisma/client": "4.7.0",
     "@types/humps": "^2.0.2",
     "axios": "^0.27.2",
     "gray-matter": "^4.0.3",
