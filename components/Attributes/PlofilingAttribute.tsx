@@ -4,7 +4,7 @@ type Props = {
   name: string;
   value: string;
   exist: boolean;
-  withTip: boolean;
+  withTip?: boolean;
 };
 
 export const PlofilingAttribute: React.FC<Props> = (props) => {

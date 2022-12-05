@@ -5,12 +5,16 @@ type Props = {
   href: string;
   title: string;
   ready: boolean;
+  onClick?: () => {};
 };
 
 const NavigationButton: React.FC<Props> = (props) => {
   return (
     <Link href={props.href || "#"} as={props.href || "#"}>
-      <button className={`btn btn-md gap-2 normal-case ${props.ready ? "btn-ghost" : "btn-disabled"}`}>
+      <button
+        className={`btn btn-md gap-2 normal-case ${props.ready ? "btn-ghost" : "btn-disabled"}`}
+        onClick={props.onClick}
+      >
         <div className="flex flex-col items-end col-span-3">
           <span className="text-base-content/50 text-md font-normal block">次へ</span>
           <span className="text-lg">{props.title}</span>
