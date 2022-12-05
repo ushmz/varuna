@@ -1,6 +1,8 @@
 ---
 title: "検索タスクページ"
-nextPath: "/enquete/before"
+forward:
+    title: "事前アンケート"
+    url: "/enquete/pre"
 
 ---
 

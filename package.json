@@ -8,20 +8,27 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node --project prisma/tsconfig-seed.json prisma/seed.ts"
+  },
   "dependencies": {
+    "@prisma/client": "4.7.0",
+    "@types/humps": "^2.0.2",
     "axios": "^0.27.2",
     "gray-matter": "^4.0.3",
+    "humps": "^2.0.1",
     "marked": "^4.0.17",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-feather": "^2.0.10"
+    "react-feather": "^2.0.10",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@braintree/sanitize-url": "^6.0.0",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/marked": "^4.0.3",
-    "@types/node": "18.0.1",
+    "@types/node": "^18.11.9",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "autoprefixer": "^10.4.7",
