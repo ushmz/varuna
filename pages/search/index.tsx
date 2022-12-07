@@ -11,6 +11,7 @@ import type { SearchPage } from "@pages/api/search";
 import { join } from "path";
 import { useRecoilValue } from "recoil";
 import { assignmentState } from "@lib/store/assignment";
+import { Assignment } from "@lib/api/type";
 
 type Props = {
   offset: number;

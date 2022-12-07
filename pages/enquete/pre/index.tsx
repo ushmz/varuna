@@ -12,6 +12,7 @@ import { assignmentState } from "@lib/store/assignment";
 import { assignTask } from "@lib/api/user";
 import { useRouter } from "next/router";
 import { userState } from "@lib/store/user";
+import { Assignment, UserInfo } from "@lib/api/type";
 
 type Props = {
   slug: string;

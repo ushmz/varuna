@@ -1,6 +1,7 @@
 import { userState } from "@lib/store/user";
 import { useRecoilValue } from "recoil";
 import externalAPI from "./instance";
+import { ClickLogParam, DwellTimeLogParam, HoverLogParam, UserInfo } from "./type";
 
 export const sendClickLog = async (param: ClickLogParam) => {
   const userInfo = useRecoilValue<UserInfo>(userState);

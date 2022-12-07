@@ -12,6 +12,7 @@ import { Loader } from "@components/Loader";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
+import { UserInfo } from "@lib/api/type";
 
 type Props = {
   csName: string;

@@ -1,34 +1,34 @@
-type UserInfo = {
+export type UserInfo = {
   id: number;
   externalId: string;
   token: string;
 };
 
-type TaskQuery = {
+export type TaskQuery = {
   id: number;
   query: string;
 };
 
-type Assignment = {
+export type Assignment = {
   taskId: number;
   condition: string;
 };
 
-type ClickLogParam = {
+export type ClickLogParam = {
   userId: number;
   taskId: number;
   condition: string;
   pageId: number;
 };
 
-type DwellTimeLogParam = {
+export type DwellTimeLogParam = {
   userId: number;
   taskId: number;
   condition: string;
   pageId: number;
 };
 
-type HoverLogParam = {
+export type HoverLogParam = {
   userId: number;
   taskId: number;
   condition: string;

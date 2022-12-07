@@ -1,4 +1,5 @@
 import externalAPI from "./instance";
+import { Assignment, TaskQuery, UserInfo } from "./type";
 
 export const simplifiedSignUp = async (externalID: string) => {
   // Avoid converting `externalID` -> `external_i_d` by "humps"
