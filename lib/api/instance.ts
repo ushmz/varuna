@@ -2,7 +2,7 @@ import axios from "axios";
 import humps from "humps";
 
 const instance = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:3333/api',
+  baseURL: process.env.API_URL || "http://localhost:3333/api",
 });
 
 instance.interceptors.request.use(

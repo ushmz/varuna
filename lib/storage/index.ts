@@ -1,4 +1,4 @@
-import { Assignment, UserInfo } from "@lib/api/user";
+import { Assignment, UserInfo } from "@lib/api/type";
 
 export const getUserID = () => {
   return localStorage.getItem("id") || "";
@@ -22,11 +22,11 @@ export const getAssignedTask = () => {
 
 export const setAssignment = (assignment: Assignment) => {
   setCondition(assignment.condition);
-  setAssignedTask(assignment.taskID);
-}
+  setAssignedTask(assignment.taskId);
+};
 
 export const setUserInfo = (user: UserInfo) => {
-  localStorage.setItem('id', user.id.toString());
-  localStorage.setItem('externalID', user.externalID);
-  localStorage.setItem('token', user.token);
-}
+  localStorage.setItem("id", user.id.toString());
+  localStorage.setItem("externalID", user.externalId);
+  localStorage.setItem("token", user.token);
+};

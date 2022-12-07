@@ -34,4 +34,3 @@ export type HoverLogParam = {
   condition: string;
   pageId: number;
 };
-

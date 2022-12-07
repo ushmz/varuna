@@ -70,7 +70,7 @@ const Search: NextPage<Props> = (props) => {
               );
             default:
               return (
-                <div key={`control-${page.id}`}  className="my-5">
+                <div key={`control-${page.id}`} className="my-5">
                   <ControlUI title={page.title} url={page.url} snippet={page.snippet} sendClickLog={() => {}} />
                 </div>
               );

@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import { SearchResult } from '../SearchResult';
+import { SearchResult } from "../SearchResult";
 
 type LinkedPage = {
-    id: string;
-    title: string;
-    url: string;
-    icon: string;
-    category?: number | undefined;
-}
+  id: string;
+  title: string;
+  url: string;
+  icon: string;
+  category?: number | undefined;
+};
 
 type IconUIProps = {
   title: string;
@@ -42,13 +42,13 @@ export const IconUI: React.FC<IconUIProps> = (props) => {
                   src={getIconCache(v.url)}
                   onError={(e) => {
                     const target = e.target as HTMLElement;
-                    target.style.display = 'none';
+                    target.style.display = "none";
                     // const leaksArea = document.getElementById('eob_21');
                     // if (leaksArea != null) {
                     //   leaksArea.style.display = 'none';
                     // }
                   }}
-                  style={{ height: 30, objectFit: 'cover' }}
+                  style={{ height: 30, objectFit: "cover" }}
                 />
               </a>
             </div>
@@ -61,23 +61,23 @@ export const IconUI: React.FC<IconUIProps> = (props) => {
 
 const styles: { [key: string]: React.CSSProperties } = {
   nudge: {
-    marginTop: '10px',
-    padding: '0 15px 8px',
-    border: '1px solid #dadce0',
-    borderRadius: '8px',
-    position: 'relative',
-    transition: 'all 150ms ease-in-out',
-    transformOrigin: 'top',
+    marginTop: "10px",
+    padding: "0 15px 8px",
+    border: "1px solid #dadce0",
+    borderRadius: "8px",
+    position: "relative",
+    transition: "all 150ms ease-in-out",
+    transformOrigin: "top",
   },
   suggestionTitle: {
-    margin: '8px 0',
-    color: 'rgba(0, 0, 0, 0.6)',
-    fontSize: '14px',
+    margin: "8px 0",
+    color: "rgba(0, 0, 0, 0.6)",
+    fontSize: "14px",
     fontWeight: 300,
     lineHeight: 1.2,
   },
   icons: {
-    marginLeft: '5px',
-    display: 'flex',
+    marginLeft: "5px",
+    display: "flex",
   },
 };

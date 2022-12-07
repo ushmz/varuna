@@ -6,7 +6,7 @@ import { useState } from "react";
 import NavigationButton from "@components/NavigationButton";
 import { getEnqueteBySlug } from "@lib/api/content";
 import markdownToHTML from "@lib/markdownToHTML";
-import { TwoChoiseRadio } from "@components/Enquete/TwoChoises";
+import { TwoChoiseRadio } from "@components/Enquete";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { assignmentState } from "@lib/store/assignment";
 import { assignTask } from "@lib/api/user";
@@ -43,7 +43,7 @@ const PreEnquete: NextPage<Props> = (props: Props) => {
     console.log("PreEnquete: ", assign);
     setAssignment(assign);
     router.push(`/task/${assign.taskId}`);
-  }
+  };
 
   return (
     <div>
@@ -68,12 +68,7 @@ const PreEnquete: NextPage<Props> = (props: Props) => {
         </div>
         <div className="mt-32 text-right">
           {isEnqueteClicked ? (
-            <NavigationButton
-              href=""
-              onClick={onSubmit}
-              ready={isEnqueteClicked}
-              title="検索タスク"
-            />
+            <NavigationButton href="" onClick={onSubmit} ready={isEnqueteClicked} title="検索タスク" />
           ) : (
             <div className="tooltip tooltip-warning" data-tip="アンケートに回答してください">
               <NavigationButton href={`/task/${assignment.taskId}`} ready={isEnqueteClicked} title="検索タスク" />

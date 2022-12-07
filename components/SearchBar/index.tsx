@@ -10,7 +10,7 @@ export const PhonySearchBar: React.FC<SearchHeaderProps> = (props) => {
   return (
     <div className={styles.container}>
       {props.warnMessage ? (
-        <div className="tooltip tooltip-bottom" style={{display: 'flex'}} data-tip={props.warnMessage}>
+        <div className="tooltip tooltip-bottom" style={{ display: "flex" }} data-tip={props.warnMessage}>
           <SearchQueryInput query={props.query} warnMessage={props.warnMessage} />
         </div>
       ) : (
