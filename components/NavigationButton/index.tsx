@@ -5,7 +5,7 @@ type Props = {
   href: string;
   title: string;
   ready: boolean;
-  onClick?: () => {};
+  onClick?: () => void;
 };
 
 const NavigationButton: React.FC<Props> = (props) => {
