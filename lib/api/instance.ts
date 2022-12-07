@@ -1,28 +1,8 @@
 import axios from "axios";
 import humps from "humps";
 
-type Attribute = {
-  name: string;
-  value: string;
-  color: string;
-};
-
-export type SearchPage = {
-  id: number;
-  title: string;
-  url: string;
-  snippet: string;
-  attributes: Attribute[];
-};
-
-export type UserInfo = {
-  id: number;
-  externalID: string;
-  token: string;
-};
-
 const instance = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.API_URL || 'http://localhost:3333/api',
 });
 
 instance.interceptors.request.use(
@@ -34,7 +14,7 @@ instance.interceptors.request.use(
     config.data = config.data && humps.decamelizeKeys(config.data);
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => error,
 );
 
 instance.interceptors.response.use(
@@ -42,7 +22,7 @@ instance.interceptors.response.use(
     response.data = humps.camelizeKeys(response.data);
     return response;
   },
-  (error) => Promise.reject(error),
+  (error) => error,
 );
 
 export default instance;

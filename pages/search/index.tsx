@@ -1,7 +1,6 @@
 import fs from "fs";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NextPage } from "next";
-import { getCondition } from "@lib/storage";
 import { ControlUI } from "@components/ControlUI";
 import { IconUI } from "@components/IconUI";
 import { PurposeUI } from "@components/PurposeUI";
@@ -10,6 +9,8 @@ import { PhonySearchBar } from "@components/SearchBar";
 import { Pagination } from "@components/Serp/Pagination";
 import type { SearchPage } from "@pages/api/search";
 import { join } from "path";
+import { useRecoilValue } from "recoil";
+import { assignmentState } from "@lib/store/assignment";
 
 type Props = {
   offset: number;
@@ -17,12 +18,7 @@ type Props = {
 };
 
 const Search: NextPage<Props> = (props) => {
-  const [condition, setCondition] = useState<string>("");
-
-  useEffect(() => {
-    const cond = getCondition();
-    setCondition("purpose");
-  }, []);
+  const assignment = useRecoilValue<Assignment>(assignmentState);
 
   return (
     <div className="App">
@@ -34,7 +30,7 @@ const Search: NextPage<Props> = (props) => {
 
       <div className="relative mt-28 mb-32 ml-48 w-[650px]">
         {props.pages.map((page) => {
-          switch (condition) {
+          switch (assignment.condition) {
             case "icon":
               return (
                 <div key={`icon-${page.id}`} className="my-8">

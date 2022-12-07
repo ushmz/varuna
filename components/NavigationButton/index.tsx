@@ -16,8 +16,8 @@ const NavigationButton: React.FC<Props> = (props) => {
         onClick={props.onClick}
       >
         <div className="flex flex-col items-end col-span-3">
-          <span className="text-base-content/50 text-md font-normal block">次へ</span>
-          <span className="text-lg">{props.title}</span>
+          <span className="text-base-content/50 text-md font-normal block">{props.title}</span>
+          <span className="text-lg">次へ</span>
         </div>
         <svg
           className="h-8 w-8 fill-current"

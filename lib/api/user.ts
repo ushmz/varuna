@@ -1,23 +1,14 @@
 import externalAPI from "./instance";
 
-export type UserInfo = {
-  id: number;
-  externalID: string;
-  token: string;
+export const simplifiedSignUp = async (externalID: string) => {
+  // Avoid converting `externalID` -> `external_i_d` by "humps"
+  // be aware that the key name is `externalId`
+  const response = await externalAPI.post<{ data: UserInfo }>("/u/signup", { externalId: externalID });
+  return response.data.data;
 };
 
-export const simplifiedSignIn = async (externalID: string) => {
-  const response = await externalAPI.post<UserInfo>("/signup", { externalID: externalID });
-  return response.data;
-};
-
-export const implicitlySignOut = async (externalID: string) => {
+export const implicitlySignOut = async (_: string) => {
   return;
-};
-
-export type TaskQuery = {
-  id: number;
-  query: string;
 };
 
 export const getTaskQueries = async () => {
@@ -25,20 +16,13 @@ export const getTaskQueries = async () => {
   return response.data;
 };
 
-export type Assignment = {
-  taskID: number;
-  condition: string;
-};
-
-export const assignTask = async (userID: number) => {
-  const response = await externalAPI.post<Assignment>(
+export const assignTask = async (userID: number, token: string) => {
+  // Avoid converting `userID` -> `user_i_d` by "humps"
+  // be aware that the key name is `userId`
+  const response = await externalAPI.post<{ data: Assignment }>(
     "/a/user/assign",
-    { userID: userID },
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    },
+    { userId: userID },
+    { headers: { Authorization: `Bearer ${token}` } },
   );
-  return response.data;
+  return response.data.data;
 };
