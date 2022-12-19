@@ -6,6 +6,9 @@ import { NextPage } from "next";
 import StepCard from "@components/StepCard";
 import { useState } from "react";
 import NavigationButton from "@components/NavigationButton";
+import { useRecoilValue } from "recoil";
+import { assignmentState } from "@lib/store/assignment";
+import { Assignment } from "@lib/api/type";
 
 type Props = {
   id: string;
@@ -23,6 +26,8 @@ const Task: NextPage<Props> = (props) => {
   const [isSERPClicked, setClicked] = useState<boolean>(false);
   const [answeredURL, setURL] = useState<string>("");
   const [answeredReason, setReason] = useState<string>("");
+
+  const assignment = useRecoilValue<Assignment>(assignmentState);
 
   const ready = () => {
     return isSERPClicked && /^https?:\/\/.+/.test(answeredURL);
@@ -56,7 +61,7 @@ const Task: NextPage<Props> = (props) => {
         )}
         <div className={markdownStyle["markdown"]} dangerouslySetInnerHTML={{ __html: props.content }} />
         <div className="mt-8 text-center">
-          <a target="_blank" rel="noreferrer" href="/search">
+          <a target="_blank" rel="noreferrer" href={`/search/${props.id}?offset=0`}>
             <button className="btn btn-primary" onClick={() => setClicked(true)}>
               検索を始める
             </button>

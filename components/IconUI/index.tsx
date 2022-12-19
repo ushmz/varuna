@@ -14,7 +14,7 @@ type IconUIProps = {
   title: string;
   url: string;
   snippet: string;
-  linked: LinkedPage[];
+  linked: string[];
   sendClickLog: () => void;
   sendHoverLog?: () => void;
 };
@@ -37,20 +37,18 @@ export const IconUI: React.FC<IconUIProps> = (props) => {
         <div style={styles.icons}>
           {Object.entries(props.linked).map(([k, v]) => (
             <div key={k}>
-              <a href={v.url} target="_blank" rel="noreferrer">
-                <img
-                  src={getIconCache(v.url)}
-                  onError={(e) => {
-                    const target = e.target as HTMLElement;
-                    target.style.display = "none";
-                    // const leaksArea = document.getElementById('eob_21');
-                    // if (leaksArea != null) {
-                    //   leaksArea.style.display = 'none';
-                    // }
-                  }}
-                  style={{ height: 30, objectFit: "cover" }}
-                />
-              </a>
+              <img
+                src={v}
+                onError={(e) => {
+                  const target = e.target as HTMLElement;
+                  target.style.display = "none";
+                  // const leaksArea = document.getElementById('eob_21');
+                  // if (leaksArea != null) {
+                  //   leaksArea.style.display = 'none';
+                  // }
+                }}
+                style={{ height: 30, objectFit: "cover" }}
+              />
             </div>
           ))}
         </div>

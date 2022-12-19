@@ -14,13 +14,14 @@ type RatioUIProps = {
   snippet: string;
   linked: {
     total: number;
-    distribution: LinkedPageDistribution[];
+    distribution: { category: string; count: number }[];
   };
   sendClickLog: () => void;
   sendHoverLog?: () => void;
 };
 
 export const RatioUI: React.FC<RatioUIProps> = (props) => {
+  console.log(props.linked);
   return (
     <div onMouseEnter={props.sendHoverLog}>
       <SearchResult title={props.title} url={props.url} snippet={props.snippet} sendClickLog={props.sendClickLog} />

@@ -3,6 +3,7 @@ import React from "react";
 type PaginationProps = {
   maxPage: number;
   offset: number;
+  task: number;
 };
 
 export const Pagination: React.FC<PaginationProps> = (props) => {
@@ -12,7 +13,7 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
         return (
           <a
             key={`go-to-offset-${v}`}
-            href={`/search?offset=${v}`}
+            href={`/search/${props.task}?offset=${v}`}
             className={v == props.offset ? "btn btn-active" : "btn btn-ghost"}
           >
             {v + 1}

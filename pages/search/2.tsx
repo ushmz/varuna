@@ -26,7 +26,7 @@ const Search: NextPage<Props> = (props) => {
     <div className="App">
       <header className="h-20 fixed top-0 w-full block z-10 bg-white drop-shadow-md">
         <div className="mt-4 ml-40 w-[680px]">
-          <PhonySearchBar query="sample query" warnMessage="検索クエリは変更できません" />
+          <PhonySearchBar query="家具レンタル" warnMessage="検索クエリは変更できません" />
         </div>
       </header>
 
@@ -47,7 +47,7 @@ const Search: NextPage<Props> = (props) => {
                     title={page.title}
                     url={page.url}
                     snippet={page.snippet}
-                    linked={[]}
+                    linked={page.icons}
                     sendClickLog={() => { }}
                   />
                 </div>
@@ -59,7 +59,7 @@ const Search: NextPage<Props> = (props) => {
                     title={page.title}
                     url={page.url}
                     snippet={page.snippet}
-                    linked={{ total: 0, distribution: [] }}
+                    linked={{ total: page.ratio.total, distribution: page.ratio.distribution }}
                     sendClickLog={() => { }}
                   />
                 </div>
@@ -96,7 +96,6 @@ export default Search;
 
 type SearchPageContext = {
   query: {
-    task: number;
     offset?: number;
   };
 };
@@ -104,13 +103,13 @@ type SearchPageContext = {
 export async function getServerSideProps({ query }: SearchPageContext) {
   const offset = query.offset ? query.offset : 0;
 
-  const path = join(process.cwd(), "public/fixtures", `${query.task}_p${parseInt(offset) + 1}.json`);
+  const path = join(process.cwd(), "public/fixtures", `2_p${parseInt(offset) + 1}.json`);
   const content = fs.readFileSync(path, "utf8");
   const obj = JSON.parse(content);
 
   return {
     props: {
-      task: query.task,
+      task: 2,
       offset: query.offset || 0,
       pages: obj.data || [],
     },
