@@ -1,44 +1,38 @@
 import React from "react";
 
 import { SearchResult } from "../SearchResult";
-
-type LinkedPage = {
-  id: string;
-  title: string;
-  url: string;
-  icon: string;
-  category?: number | undefined;
-};
+import style from "./Icon.module.css";
 
 type IconUIProps = {
   title: string;
   url: string;
   snippet: string;
-  linked: string[];
+  icons?: string[];
   sendClickLog: () => void;
   sendHoverLog?: () => void;
 };
 
-const getIconCache = (origin: string): string => {
-  const prsr = new URL(origin);
-  return `/img/icons/${prsr.hostname}.png`;
-};
+// const getIconCache = (origin: string): string => {
+//   const prsr = new URL(origin);
+//   return `/img/icons/${prsr.hostname}.png`;
+// };
 
 export const IconUI: React.FC<IconUIProps> = (props) => {
   return (
     <div onMouseEnter={props.sendHoverLog}>
       <SearchResult title={props.title} url={props.url} snippet={props.snippet} sendClickLog={props.sendClickLog} />
-      <div style={styles.nudge}>
-        <h4 style={styles.suggestionTitle}>
+      <div className={style["nudge"]}>
+        <h4 className={style["suggestion-title"]}>
           上のページを閲覧すると，以下のウェブサイトでも
           <br />
           上記ページの閲覧履歴を記録・分析される可能性があります
         </h4>
-        <div style={styles.icons}>
-          {Object.entries(props.linked).map(([k, v]) => (
-            <div key={k}>
+        <div className={style["icons-container"]}>
+          {props.icons?.map((src, idx) => (
+            <div key={`${src}.${idx}`}>
               <img
-                src={v}
+                src={src}
+                className={style["icon"]}
                 onError={(e) => {
                   const target = e.target as HTMLElement;
                   target.style.display = "none";
@@ -47,7 +41,6 @@ export const IconUI: React.FC<IconUIProps> = (props) => {
                   //   leaksArea.style.display = 'none';
                   // }
                 }}
-                style={{ height: 30, objectFit: "cover" }}
               />
             </div>
           ))}
@@ -55,27 +48,4 @@ export const IconUI: React.FC<IconUIProps> = (props) => {
       </div>
     </div>
   );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-  nudge: {
-    marginTop: "10px",
-    padding: "0 15px 8px",
-    border: "1px solid #dadce0",
-    borderRadius: "8px",
-    position: "relative",
-    transition: "all 150ms ease-in-out",
-    transformOrigin: "top",
-  },
-  suggestionTitle: {
-    margin: "8px 0",
-    color: "rgba(0, 0, 0, 0.6)",
-    fontSize: "14px",
-    fontWeight: 300,
-    lineHeight: 1.2,
-  },
-  icons: {
-    marginLeft: "5px",
-    display: "flex",
-  },
 };

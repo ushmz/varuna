@@ -1,4 +1,4 @@
-import { Assignment, UserInfo } from "../../lib/api/type";
+import { Assignment, UserInfo } from "../../types";
 
 export const getUserID = () => {
   return localStorage.getItem("id") || "";

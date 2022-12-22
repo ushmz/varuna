@@ -8,15 +8,19 @@ type Props = {
 };
 
 export const SearviceAttribute: React.FC<Props> = (props) => {
+  if (!props.exist) {
+    return <></>;
+  }
+
   return props.withTip ? (
-    <div className={`${props.exist ? "bg-blue-400" : "bg-blue-100"} rounded-full attr px-2 py-1`}>
+    <div className={"bg-blue-400 rounded-full attr px-2 py-1"}>
       <div className="tooltip tooltip-top" data-tip={props.value}>
-        <div className={`text-center ${props.exist ? "text-black" : "text-gray-400"}`}>{`${props.name}`}</div>
+        <div className="text-center font-bold text-white">サービスの提供・改善</div>
       </div>
     </div>
   ) : (
-    <div className={`${props.exist ? "bg-blue-400" : "bg-blue-100"} rounded-full attr px-2 py-1`}>
-      <div className={`text-center ${props.exist ? "text-black" : "text-gray-400"}`}>{`${props.name}`}</div>
+    <div className={"bg-blue-400 rounded-full attr px-2 py-1"}>
+      <div className="text-center font-bold text-white">サービスの提供・改善</div>
     </div>
   );
 };

@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import markdownStyle from "../../styles/markdown.module.css";
 import StepCard from "../../components/StepCard";
-import { useEffect, useState } from "react";
 import NavigationButton from "../../components/NavigationButton";
 import { TwoChoiseRadio } from "../../components/Enquete";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { assignmentState } from "../../lib/store/assignment";
-import { assignTask } from "../../lib/api/user";
+import { assignTask } from "../../lib/api";
 import { userState } from "../../lib/store/user";
-import { Assignment, UserInfo } from "../../lib/api/type";
-import { useNavigate } from "react-router-dom";
+import { Assignment, UserInfo } from "../../types";
 
 export const PreEnquete: React.FC = () => {
   const [task1Ayes, setTask1Ayes] = useState<boolean>(false);
@@ -28,9 +28,8 @@ export const PreEnquete: React.FC = () => {
 
   const onSubmit = async () => {
     const assign = await assignTask(userInfo.id, userInfo.token);
-    console.log("PreEnquete: ", assign);
     setAssignment(assign);
-    navigate(`/task/${assign.taskId}`);
+    navigate(`/task`);
   };
 
   return (
@@ -55,10 +54,10 @@ export const PreEnquete: React.FC = () => {
         </div>
         <div className="mt-32 text-right">
           {isEnqueteClicked ? (
-            <NavigationButton href="" onClick={onSubmit} ready={isEnqueteClicked} title="検索タスク" />
+            <NavigationButton onClick={onSubmit} ready={isEnqueteClicked} title="検索タスク" />
           ) : (
             <div className="tooltip tooltip-warning" data-tip="アンケートに回答してください">
-              <NavigationButton href={`/task/${assignment.taskId}`} ready={isEnqueteClicked} title="検索タスク" />
+              <NavigationButton ready={isEnqueteClicked} title="検索タスク" />
             </div>
           )}
         </div>

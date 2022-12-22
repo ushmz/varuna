@@ -1,0 +1,27 @@
+.nudge {
+  margin-top: 10px;
+  padding: 0 15px 8px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  position: relative;
+  transition: all 150ms ease-in-out;
+  transform-origin: top;
+}
+
+.suggestion-title {
+  margin: 8px 0;
+  color: rgba(0 0 0 / 60%);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.icons-container {
+  margin-left: 5px;
+  display: flex;
+}
+
+.icon {
+  height: 30px;
+  object-fit: cover;
+}

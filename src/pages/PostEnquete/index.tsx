@@ -1,19 +1,18 @@
+import { useState } from "react";
+import { useRecoilValue } from "recoil";
 import markdownStyle from "../../styles/markdown.module.css";
 import StepCard from "../../components/StepCard";
-import { useState } from "react";
 import NavigationButton from "../../components/NavigationButton";
-import { useRecoilValue } from "recoil";
-import { Assignment } from "../../lib/api/type";
+import { Assignment, UserInfo } from "../../types";
 import { assignmentState } from "../../lib/store/assignment";
-
-const enqueteURL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScGClMqW5Z0qXLAZcvIPBXX5EFvPr8pUej_c48ZkzOsmy14VQ/viewform?usp=pp_url&entry.1134254626=";
+import { userState } from "../../lib/store/user";
+import { enquete } from "../../lib/config";
 
 export const PostEnquete: React.FC = () => {
   const [isEnqueteClicked, setClicked] = useState<boolean>(false);
 
+  const user = useRecoilValue<UserInfo>(userState);
   const assignment = useRecoilValue<Assignment>(assignmentState);
-  console.log(assignment);
 
   return (
     <div>
@@ -27,17 +26,17 @@ export const PostEnquete: React.FC = () => {
           <h2>注意事項</h2>
           <ul>
             <li>
-              アンケートページは別タブで開かれますが、アンケートページが開いてもこのページは**開いたままに**してください。
+              アンケートページは別タブで開かれますが、アンケートページが開いてもこのページは
+              <strong>開いたまま</strong>にしてください。
             </li>
             <li>
               アンケートへの回答が終了したらアンケートページが表示されているタブを閉じ、この画面からタスクを再開してください。
             </li>
             <li>アンケートページは一度閉じると、もう一度表示することはできません。</li>
           </ul>
-          <p>実験は以上で終了となります。次のページへ進んで完了コードを発行してください。</p>
         </div>
         <div className="mt-8 text-center">
-          <a target="_blank" rel="noreferrer" href={`${enqueteURL}`}>
+          <a target="_blank" rel="noreferrer" href={`${enquete[assignment.condition]}${user.id}`}>
             <button
               className={`btn ${isEnqueteClicked ? "btn-disabled" : "btn-primary"}`}
               onClick={() => setClicked(true)}

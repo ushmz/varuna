@@ -1,37 +1,32 @@
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import markdownStyle from "../../styles/markdown.module.css";
 import StepCard from "../../components/StepCard";
-import React, { useEffect, useState } from "react";
 import NavigationButton from "../../components/NavigationButton";
-import { useRecoilValue } from "recoil";
 import { assignmentState } from "../../lib/store/assignment";
-import { Assignment } from "../../lib/api/type";
-import { useLocation } from "react-router-dom";
+import { Assignment, TaskInfo } from "../../types";
+import { getTaskInfo } from "../../lib/api";
 
-type TaskInfo = {
-  id: string;
-  query: string;
-  title: string;
-  description: string;
-};
+const URL_PATTERN = /^https?:\/\/.+\..+/;
 
 export const Task: React.FC = () => {
   const [isSERPClicked, setClicked] = useState<boolean>(false);
   const [answeredURL, setURL] = useState<string>("");
   const [answeredReason, setReason] = useState<string>("");
-  const [task, setTask] = useState<TaskInfo>({ id: "", query: "", title: "", description: "" });
-
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-
-  useEffect(() => {
-    document.title = "検索タスク詳細";
-    // getTask();
-  }, []);
+  const [task, setTask] = useState<TaskInfo>();
 
   const assignment = useRecoilValue<Assignment>(assignmentState);
 
+  useEffect(() => {
+    document.title = "検索タスク詳細";
+    (async () => {
+      const task = await getTaskInfo(assignment.taskId);
+      setTask(task);
+    })();
+  }, [assignment.taskId]);
+
   const ready = () => {
-    return isSERPClicked && /^https?:\/\/.+/.test(answeredURL);
+    return isSERPClicked && URL_PATTERN.test(answeredURL);
   };
 
   const wanrMsg = () => {
@@ -39,11 +34,15 @@ export const Task: React.FC = () => {
       return "検索を開始してください";
     } else if (answeredURL.length < 1) {
       return "回答を入力してください";
-    } else if (!/^https?:\/\/.+/.test(answeredURL)) {
+    } else if (!URL_PATTERN.test(answeredURL)) {
       return "有効なURLを入力してください";
     }
     return "";
   };
+
+  if (!task) {
+    return <></>;
+  }
 
   return (
     <div>
@@ -67,13 +66,12 @@ export const Task: React.FC = () => {
             <li>制限時間はありませんので、納得のいくまで検索を行ってください。</li>
             <li>
               Google 検索や Yahoo
-              検索など他のウェブ検索エンジンを使わずにタスクを行ってください。あくまで表示された検索結果リストとそのリンク先ページの情報のみをもとに、タスクを行ってください．
+              検索など他のウェブ検索エンジンを使わずにタスクを行ってください。あくまで表示された検索結果リストとそのリンク先ページの情報のみをもとに、タスクを行ってください。
             </li>
           </ul>
-          <p></p>
         </div>
         <div className="mt-8 text-center">
-          <a target="_blank" rel="noreferrer" href={`/search/${task.id}?offset=0`}>
+          <a target="_blank" rel="noreferrer" href={`/search?offset=0`}>
             <button className="btn btn-primary" onClick={() => setClicked(true)}>
               検索を始める
             </button>

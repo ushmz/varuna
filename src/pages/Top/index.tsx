@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { referrer } from "../../lib/config";
-import { simplifiedSignUp } from "../../lib/api/user";
+import { simplifiedSignUp } from "../../lib/api";
 import { useRecoilState } from "recoil";
 import { userState } from "../../lib/store/user";
 import { Loader } from "../../components/Loader";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { UserInfo } from "../../lib/api/type";
+import { UserInfo } from "../../types";
 import { useNavigate } from "react-router-dom";
 
 import styles from "../../styles/pages/home.module.css";

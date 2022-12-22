@@ -9,23 +9,34 @@ export type TaskQuery = {
   query: string;
 };
 
+export type Condition = "icon" | "ratio" | "purpose" | "control";
+
 export type Assignment = {
   taskId: number;
-  condition: string;
+  condition: Condition;
+};
+
+export type TaskInfo = {
+  id: number;
+  query: string;
+  title: string;
+  topic: string;
+  description: string;
 };
 
 export type ClickLogParam = {
-  userId: number;
-  taskId: number;
+  user: number;
+  task: number;
   condition: string;
-  pageId: number;
+  rank: number;
+  visible: boolean;
+  isFirst: boolean;
 };
 
 export type DwellTimeLogParam = {
-  userId: number;
-  taskId: number;
+  user: number;
+  task: number;
   condition: string;
-  pageId: number;
 };
 
 export type HoverLogParam = {

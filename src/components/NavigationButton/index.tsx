@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  href: string;
+  href?: string;
   title: string;
   ready: boolean;
   onClick?: () => void;

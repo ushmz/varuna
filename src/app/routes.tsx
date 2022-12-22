@@ -1,7 +1,7 @@
-import { Top } from "../pages/Top";
 import React from "react";
 import { isMobile } from "react-device-detect";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Top } from "../pages/Top";
 import { PreEnquete } from "../pages/PreEnquete";
 import { PostEnquete } from "../pages/PostEnquete";
 import { Task } from "../pages/Task";
@@ -43,7 +43,7 @@ const Router: React.FC = () => {
         <Route path="/" element={<Top />} />
         <Route path="/enquete/pre" element={<PreEnquete />} />
         <Route path="/enquete/post" element={<PostEnquete />} />
-        <Route path="/task/:id" element={<Task />} />
+        <Route path="/task" element={<Task />} />
         <Route path="/search" element={<Search />} />
         <Route path="/code" element={<Code />} />
       </Routes>
