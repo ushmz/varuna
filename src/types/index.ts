@@ -9,7 +9,7 @@ export type TaskQuery = {
   query: string;
 };
 
-export type Condition = "icon" | "ratio" | "purpose" | "control";
+export type Condition = "icon" | "ratio" | "purpose" | "controled";
 
 export type Assignment = {
   taskId: number;

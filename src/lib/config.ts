@@ -7,6 +7,6 @@ export const enquete = {
     "https://docs.google.com/forms/d/e/1FAIpQLSdBNBfAE6vWJmNwfIZ9tMrSghCwdl30HTs3pr8EXhCuQsNYGA/viewform?usp=pp_url&entry.1134254626=",
   purpose:
     "https://docs.google.com/forms/d/e/1FAIpQLSc1xM9GJPTGuLT72jBWFdOFN0kbDKcDjLNdTCeuuyq7-iwrjA/viewform?usp=pp_url&entry.1134254626=",
-  control:
+  controled:
     "https://docs.google.com/forms/d/e/1FAIpQLScGClMqW5Z0qXLAZcvIPBXX5EFvPr8pUej_c48ZkzOsmy14VQ/viewform?usp=pp_url&entry.1134254626=",
 };
