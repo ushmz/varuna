@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Clipboard } from "react-feather";
+import { useRecoilValue } from "recoil";
+import { getCompletionCode } from "../../lib/api";
 import { referrer } from "../../lib/config";
+import { userState } from "../../lib/store/user";
 import markdownStyle from "../../styles/markdown.module.css";
+import { UserInfo } from "../../types";
 
 export const Code: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -10,11 +14,16 @@ export const Code: React.FC = () => {
     setTimeout(() => setVisible(false), 1000);
   };
 
-  const [code, setCode] = useState<string>("");
+  const user = useRecoilValue<UserInfo>(userState);
+
+  const [code, setCode] = useState<number>(0);
   useEffect(() => {
     document.title = "完了コード";
-    setCode("6153969231");
-  }, []);
+    (async () => {
+      const code = await getCompletionCode(user.id);
+      setCode(code);
+    })();
+  }, [user]);
 
   return (
     <div>
@@ -38,7 +47,7 @@ export const Code: React.FC = () => {
                 <button
                   className="btn btn-square bg-slate-100"
                   onClick={() => {
-                    navigator.clipboard.writeText(code);
+                    navigator.clipboard.writeText(code.toString());
                     showTipOnCopied();
                   }}
                 >

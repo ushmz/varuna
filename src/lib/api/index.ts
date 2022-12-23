@@ -58,3 +58,8 @@ export const sendHoverLog = async (token: string, param: HoverLogParam) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+export const getCompletionCode = async (userId: number) => {
+  const response = await externalAPI.get<{ data: number }>(`/a/user/code?user=${userId}`);
+  return response.data.data;
+};
