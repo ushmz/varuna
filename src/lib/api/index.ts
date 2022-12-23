@@ -25,12 +25,12 @@ export const getTaskQueries = async () => {
   return response.data;
 };
 
-export const assignTask = async (userID: number, token: string) => {
+export const assignTask = async (userID: number, token: string, used: { task1: boolean; task2: boolean }) => {
   // Avoid converting `userID` -> `user_i_d` by "humps"
   // be aware that the key name is `userId`
   const response = await externalAPI.post<{ data: Assignment }>(
     "/a/user/assign",
-    { userId: userID },
+    { userId: userID, used: used },
     { headers: { Authorization: `Bearer ${token}` } },
   );
   return response.data.data;

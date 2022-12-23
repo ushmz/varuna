@@ -7,7 +7,7 @@ export const Code: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const showTipOnCopied = () => {
     setVisible(true);
-    setTimeout(() => setVisible(false), 3000);
+    setTimeout(() => setVisible(false), 1000);
   };
 
   const [code, setCode] = useState<string>("");
@@ -50,15 +50,15 @@ export const Code: React.FC = () => {
         </div>
 
         <div className={markdownStyle["markdown"]}>
-          <p>タスクへのご協力ありがとうございます。</p>
-          <div>
-            上記の完了コードを{referrer}の作業画面の「タスク完了コード」の欄に入力してください。
-            完了コードを記録したら、この画面を閉じていただいて問題ありません。
-          </div>
-          <div>
-            一度この画面を離れると、この画面は<strong>表示されません</strong>
+          <p>
+            タスクへのご協力ありがとうございます。 上記の完了コードを{referrer}
+            の作業画面の「タスク完了コード」の欄に入力してください。
+          </p>
+          <p>
+            一度この画面を離れると、この画面は<strong className="text-red-500">表示されません</strong>
             ので、忘れないようにメモなどをお願いいたします。
-          </div>
+          </p>
+          <p>完了コードを記録したら、この画面を閉じていただいて問題ありません。</p>
         </div>
       </main>
     </div>

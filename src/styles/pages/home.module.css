@@ -40,13 +40,7 @@
   font-size: 3rem;
 }
 
-.title,
 .description {
-  /* text-align: center; */
-}
-
-.description {
-  margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.25rem;
 }

@@ -34,8 +34,6 @@ export const Top: React.FC = () => {
   const submitUser = async () => {
     const user = await simplifiedSignUp(watch("externalID"));
     setUserInfo(user);
-    // const task = await assignTask(user.id, user.token);
-    // setAssignment(task);
   };
 
   const onSubmit = async () => {

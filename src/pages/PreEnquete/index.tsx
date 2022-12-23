@@ -27,7 +27,7 @@ export const PreEnquete: React.FC = () => {
   const [assignment, setAssignment] = useRecoilState<Assignment>(assignmentState);
 
   const onSubmit = async () => {
-    const assign = await assignTask(userInfo.id, userInfo.token);
+    const assign = await assignTask(userInfo.id, userInfo.token, { task1: task1Ayes, task2: task2Ayes });
     setAssignment(assign);
     navigate(`/task`);
   };
