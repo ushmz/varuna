@@ -40,7 +40,7 @@ export const PreEnquete: React.FC = () => {
         </div>
         <div className={markdownStyle["markdown"]}>
           <h2>事前アンケート</h2>
-          <p>タスクを行う前に以下のアンケートにお答えください。質問は全部で 2 問あり、想定所要時間は約 1 分です。</p>
+          <p>タスクを行う前に以下のアンケートにお答えください。質問は全部で 2 問です。</p>
         </div>
         <div className={markdownStyle["markdown"]}>
           <h2>質問項目</h2>

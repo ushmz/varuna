@@ -23,13 +23,14 @@ export const Code: React.FC = () => {
       const code = await getCompletionCode(user.id);
       setCode(code);
     })();
+    window.addEventListener("beforeunload", () => localStorage.clear());
   }, [user]);
 
   return (
     <div>
       <main>
         <div className="mx-auto my-8">
-          <div className="text-2xl">タスクへのご協力ありがとうございました。あなたの完了コードは以下です。</div>
+          <div className="text-2xl">完了コード</div>
         </div>
         <div className="card text-center rounded-lg shadow-xl ">
           <div className="card-body">
@@ -58,16 +59,20 @@ export const Code: React.FC = () => {
           </div>
         </div>
 
-        <div className={markdownStyle["markdown"]}>
-          <p>
-            タスクへのご協力ありがとうございます。 上記の完了コードを{referrer}
-            の作業画面の「タスク完了コード」の欄に入力してください。
-          </p>
-          <p>
-            一度この画面を離れると、この画面は<strong className="text-red-500">表示されません</strong>
-            ので、忘れないようにメモなどをお願いいたします。
-          </p>
-          <p>完了コードを記録したら、この画面を閉じていただいて問題ありません。</p>
+        <div className="mt-6">
+          <div className={markdownStyle["markdown"]}>
+            <ul>
+              <li>
+                タスクへのご協力ありがとうございます。 上記の完了コードを{referrer}
+                の作業画面の「タスク完了コード」の欄に入力してください。
+              </li>
+              <li>
+                一度この画面を離れると、この画面は<strong className="text-red-500">表示されません</strong>
+                ので、忘れないようにメモなどをお願いいたします。
+              </li>
+              <li>完了コードを記録したら、この画面を閉じていただいて問題ありません。</li>
+            </ul>
+          </div>
         </div>
       </main>
     </div>

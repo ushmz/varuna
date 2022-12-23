@@ -22,7 +22,7 @@ export const PostEnquete: React.FC = () => {
         </div>
         <div className={markdownStyle["markdown"]}>
           <h2>事後アンケート</h2>
-          <p>事後アンケートにお答えください。質問は全部で 15 問あり、想定所要時間は約 5 分です。</p>
+          <p>事後アンケートにお答えください。質問は全部で15問あり、想定所要時間は5分程度です。</p>
           <h2>注意事項</h2>
           <ul>
             <li>

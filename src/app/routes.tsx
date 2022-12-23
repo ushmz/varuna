@@ -7,15 +7,18 @@ import { PostEnquete } from "../pages/PostEnquete";
 import { Task } from "../pages/Task";
 import { Search } from "../pages/Search";
 import { Code } from "../pages/Code";
+import { referrer } from "../lib/config";
 
 const Router: React.FC = () => {
   if (isMobile) {
     return (
       <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="m-3">このページはパソコン専用です。</div>
+        <div className="m-3">このページはスマートフォンからは利用できません。</div>
         <div className="card-body">
-          <p>本ウェブサイトは、クラウドワークスにて掲載している検索タスクを行っていただくためのサイトです。</p>
-          <p>このページはパソコン専用です。このタスク行うにはパソコンからアクセスしてください。</p>
+          <p>
+            本ウェブサイトは、「{referrer}」にて掲載しているウェブ検索タスクを行っていただくためのウェブサイトです。
+          </p>
+          <p>このタスク行うにはパソコンからアクセスしてください。</p>
         </div>
       </div>
     );
@@ -27,7 +30,9 @@ const Router: React.FC = () => {
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="m-3">このページはInternet explorerでの動作を保証していません。</div>
         <div className="card-body">
-          <p>本ウェブサイトは、クラウドワークスにて掲載している検索タスクを行っていただくためのサイトです。</p>
+          <p>
+            本ウェブサイトは、「{referrer}」にて掲載しているウェブ検索タスクを行っていただくためのウェブサイトです。
+          </p>
           <p>
             このページはInternet
             explorerでの動作を保証していません。このタスク行うには他のブラウザからアクセスしてください。
