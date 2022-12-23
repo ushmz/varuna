@@ -45,3 +45,11 @@ export type HoverLogParam = {
   condition: string;
   pageId: number;
 };
+
+export type Answer = {
+  userId: number;
+  taskId: number;
+  condition: string;
+  answer: string;
+  reason: string;
+};

@@ -4,8 +4,9 @@ import markdownStyle from "../../styles/markdown.module.css";
 import StepCard from "../../components/StepCard";
 import NavigationButton from "../../components/NavigationButton";
 import { assignmentState } from "../../lib/store/assignment";
-import { Assignment, TaskInfo } from "../../types";
-import { getTaskInfo } from "../../lib/api";
+import { Assignment, TaskInfo, UserInfo } from "../../types";
+import { createAnswer, getTaskInfo } from "../../lib/api";
+import { userState } from "../../lib/store/user";
 
 const URL_PATTERN = /^https?:\/\/.+\..+/;
 
@@ -16,6 +17,7 @@ export const Task: React.FC = () => {
   const [task, setTask] = useState<TaskInfo>();
 
   const assignment = useRecoilValue<Assignment>(assignmentState);
+  const user = useRecoilValue<UserInfo>(userState);
 
   useEffect(() => {
     document.title = "検索タスク詳細";
@@ -43,6 +45,16 @@ export const Task: React.FC = () => {
   if (!task) {
     return <></>;
   }
+
+  const onSubmitAnswer = async () => {
+    await createAnswer(user.token, {
+      userId: user.id,
+      taskId: assignment.taskId,
+      condition: assignment.condition,
+      answer: answeredURL,
+      reason: answeredReason,
+    });
+  };
 
   return (
     <div>
@@ -102,10 +114,12 @@ export const Task: React.FC = () => {
         </div>
         <div className="mt-32 text-right">
           {ready() ? (
-            <NavigationButton href="/enquete/post" ready={ready()} title="事後アンケート" />
+            <div onClick={() => onSubmitAnswer()}>
+              <NavigationButton href="/enquete/post" ready={ready()} title="事後アンケート" />
+            </div>
           ) : (
             <div className="tooltip tooltip-warning" data-tip={wanrMsg()}>
-              <NavigationButton href="/enquete/post" ready={ready()} title="事後アンケート" />
+              <NavigationButton href="" ready={ready()} title="事後アンケート" />
             </div>
           )}
         </div>

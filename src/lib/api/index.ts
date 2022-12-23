@@ -1,5 +1,6 @@
 import externalAPI from "./instance";
 import {
+  Answer,
   Assignment,
   ClickLogParam,
   DwellTimeLogParam,
@@ -61,5 +62,16 @@ export const sendHoverLog = async (token: string, param: HoverLogParam) => {
 
 export const getCompletionCode = async (userId: number) => {
   const response = await externalAPI.get<{ data: number }>(`/a/user/code?user=${userId}`);
+  return response.data.data;
+};
+
+export const createAnswer = async (token: string, answer: Answer) => {
+  const response = await externalAPI.post(
+    "/a/task/answer",
+    { answer: answer },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
   return response.data.data;
 };
