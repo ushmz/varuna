@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./SearchResult.module.css";
-import { Clipboard } from "react-feather";
 
 type SearchResultProps = {
   title: string;
@@ -18,26 +17,28 @@ export const SearchResult: React.FC<SearchResultProps> = (props) => {
   };
 
   return (
-    <div className={styles.container} onMouseEnter={props.sendHoverLog}>
-      <div className={visible ? "visible" : "invisible"}>
-        <div className="tooltip tooltip-open tooltip-top" data-tip="URLをコピーしました" />
-      </div>
+    <div className={styles["container"]} onMouseEnter={props.sendHoverLog}>
       <span className="flex">
-        <button
-          className={styles.copybtn}
-          onClick={() => {
-            navigator.clipboard.writeText(props.url);
-            showTipOnCopied();
-          }}
-        >
-          <Clipboard className="h-5" />
-        </button>
-        <div className={styles.url}>{props.url}</div>
+        <div className={styles["url"]}>{props.url}</div>
+        <div className={styles["copy-text-container"]}>
+          <div className={visible ? "visible" : "invisible"}>
+            <div className="tooltip tooltip-open tooltip-top" data-tip="URLをコピーしました" />
+          </div>
+          <span
+            className={styles["copy-text"]}
+            onClick={() => {
+              navigator.clipboard.writeText(props.url);
+              showTipOnCopied();
+            }}
+          >
+            URLをコピー
+          </span>
+        </div>
       </span>
       <a href={props.url} target="_blank" rel="noreferrer" onClick={props.sendClickLog}>
-        <h3 className={styles.title}>{props.title}</h3>
+        <div className={styles["title"]}>{props.title}</div>
       </a>
-      <div className={styles.snippet}>{props.snippet.slice(0, 80) + "..."}</div>
+      <div className={styles["snippet"]}>{props.snippet.slice(0, 80) + "..."}</div>
     </div>
   );
 };
