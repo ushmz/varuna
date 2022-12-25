@@ -16,6 +16,11 @@ export const PreEnquete: React.FC = () => {
 
   useEffect(() => {
     document.title = "事前アンケート";
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      e.returnValue = "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+      return "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+    };
   }, []);
 
   const navigate = useNavigate();

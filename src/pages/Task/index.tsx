@@ -12,9 +12,11 @@ const URL_PATTERN = /^https?:\/\/.+\..+/;
 
 export const Task: React.FC = () => {
   const [isSERPClicked, setClicked] = useState<boolean>(false);
+  const [isValidURL, setIsValidURL] = useState<boolean>(false);
   const [answeredURL, setURL] = useState<string>("");
   const [answeredReason, setReason] = useState<string>("");
   const [task, setTask] = useState<TaskInfo>();
+  const [submissionLocked, setSubmissionLocked] = useState<boolean>(false);
 
   const assignment = useRecoilValue<Assignment>(assignmentState);
   const user = useRecoilValue<UserInfo>(userState);
@@ -27,9 +29,19 @@ export const Task: React.FC = () => {
     })();
   }, [assignment.taskId]);
 
-  const ready = () => {
-    return isSERPClicked && URL_PATTERN.test(answeredURL);
-  };
+  useEffect(() => {
+    setIsValidURL(URL_PATTERN.test(answeredURL));
+  }, [answeredURL]);
+
+  useEffect(() => {
+    isSERPClicked && isValidURL
+      ? (window.onbeforeunload = null)
+      : (window.onbeforeunload = function (e) {
+          e.preventDefault();
+          e.returnValue = "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+          return "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+        });
+  }, [isSERPClicked, isValidURL]);
 
   const wanrMsg = () => {
     if (!isSERPClicked) {
@@ -42,19 +54,25 @@ export const Task: React.FC = () => {
     return "";
   };
 
+  const onSubmitAnswer = async () => {
+    window.onbeforeunload = null;
+    console.log(window.onbeforeunload);
+    if (!submissionLocked) {
+      setSubmissionLocked(true);
+      await createAnswer(user.token, {
+        userId: user.id,
+        taskId: assignment.taskId,
+        condition: assignment.condition,
+        answer: answeredURL,
+        reason: answeredReason,
+      });
+      setSubmissionLocked(false);
+    }
+  };
+
   if (!task) {
     return <></>;
   }
-
-  const onSubmitAnswer = async () => {
-    await createAnswer(user.token, {
-      userId: user.id,
-      taskId: assignment.taskId,
-      condition: assignment.condition,
-      answer: answeredURL,
-      reason: answeredReason,
-    });
-  };
 
   return (
     <div>
@@ -125,13 +143,18 @@ export const Task: React.FC = () => {
           </div>
         </div>
         <div className="mt-32 text-right">
-          {ready() ? (
-            <div onClick={() => onSubmitAnswer()}>
-              <NavigationButton href="/enquete/post" ready={ready()} title="事後アンケート" />
+          {isSERPClicked && isValidURL ? (
+            <div
+              onClick={() => {
+                window.onbeforeunload = null;
+                onSubmitAnswer();
+              }}
+            >
+              <NavigationButton ready href="/enquete/post" title="事後アンケート" />
             </div>
           ) : (
             <div className="tooltip tooltip-warning" data-tip={wanrMsg()}>
-              <NavigationButton href="" ready={ready()} title="事後アンケート" />
+              <NavigationButton ready={false} href="" title="事後アンケート" />
             </div>
           )}
         </div>
