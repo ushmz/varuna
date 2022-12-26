@@ -69,9 +69,11 @@ export const createAnswer = async (token: string, answer: Answer) => {
   const response = await externalAPI.post(
     "/a/task/answer",
     { answer: answer },
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    },
+    { headers: { Authorization: `Bearer ${token}` } },
   );
   return response.data.data;
+};
+
+export const upsertSearchSession = async (token: string, params: { user: number; task: number; condition: string }) => {
+  await externalAPI.post("/a/log/session", params, { headers: { Authorization: `Bearer ${token}` } });
 };

@@ -5,7 +5,7 @@ import StepCard from "../../components/StepCard";
 import NavigationButton from "../../components/NavigationButton";
 import { assignmentState } from "../../lib/store/assignment";
 import { Assignment, TaskInfo, UserInfo } from "../../types";
-import { createAnswer, getTaskInfo } from "../../lib/api";
+import { createAnswer, getTaskInfo, upsertSearchSession } from "../../lib/api";
 import { userState } from "../../lib/store/user";
 import { Error } from "../Error";
 
@@ -55,9 +55,23 @@ export const Task: React.FC = () => {
     return "";
   };
 
+  const onStartSearchTask = async () => {
+    setClicked(true);
+    await upsertSearchSession(user.token, {
+      user: user.id,
+      task: assignment.taskId,
+      condition: assignment.condition,
+    });
+  };
+
   const onSubmitAnswer = async () => {
     if (!submissionLocked) {
       setSubmissionLocked(true);
+      await upsertSearchSession(user.token, {
+        user: user.id,
+        task: assignment.taskId,
+        condition: assignment.condition,
+      });
       await createAnswer(user.token, {
         userId: user.id,
         taskId: assignment.taskId,
@@ -117,7 +131,7 @@ export const Task: React.FC = () => {
         </div>
         <div className="mt-8 text-center">
           <a target="_blank" rel="noreferrer" href={`/search?offset=0`}>
-            <button className="btn btn-primary" onClick={() => setClicked(true)}>
+            <button className="btn btn-primary" onClick={() => onStartSearchTask()}>
               検索を始める
             </button>
           </a>
