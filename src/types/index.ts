@@ -28,6 +28,7 @@ export type ClickLogParam = {
   user: number;
   task: number;
   condition: string;
+  page: number;
   rank: number;
   visible: boolean;
   isFirst: boolean;

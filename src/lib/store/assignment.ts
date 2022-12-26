@@ -7,7 +7,7 @@ export const assignmentState = atom({
   key: "task",
   default: {
     taskId: null,
-    condition: "",
+    condition: null,
   },
   effects_UNSTABLE: [persistAtom],
 });

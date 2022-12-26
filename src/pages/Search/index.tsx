@@ -73,7 +73,8 @@ export const Search: React.FC = () => {
       user: user.id,
       task: assignment.taskId,
       condition: assignment.condition,
-      rank: rank + 10 * offset,
+      page: offset + 1,
+      rank: rank,
       visible: rank % 2 === 1,
       isFirst: !isClickAnyResult,
     });
@@ -111,7 +112,7 @@ export const Search: React.FC = () => {
                     url={page.url}
                     snippet={page.snippet}
                     icons={page.icons}
-                    sendClickLog={() => sendClickLogHandler(idx)}
+                    sendClickLog={() => sendClickLogHandler(idx + 1)}
                   />
                 </div>
               );
@@ -123,7 +124,7 @@ export const Search: React.FC = () => {
                     url={page.url}
                     snippet={page.snippet}
                     ratio={page.ratio}
-                    sendClickLog={() => sendClickLogHandler(idx)}
+                    sendClickLog={() => sendClickLogHandler(idx + 1)}
                   />
                 </div>
               );
@@ -135,7 +136,7 @@ export const Search: React.FC = () => {
                     url={page.url}
                     snippet={page.snippet}
                     attributes={page.attributes}
-                    sendClickLog={() => sendClickLogHandler(idx)}
+                    sendClickLog={() => sendClickLogHandler(idx + 1)}
                   />
                 </div>
               );
@@ -146,7 +147,7 @@ export const Search: React.FC = () => {
                     title={page.title}
                     url={page.url}
                     snippet={page.snippet}
-                    sendClickLog={() => sendClickLogHandler(idx)}
+                    sendClickLog={() => sendClickLogHandler(idx + 1)}
                   />
                 </div>
               );
