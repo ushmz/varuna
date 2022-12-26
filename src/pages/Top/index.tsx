@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { referrer } from "../../lib/config";
+import { referrer, referrerID } from "../../lib/config";
 import { simplifiedSignUp } from "../../lib/api";
 import { useRecoilState } from "recoil";
 import { userState } from "../../lib/store/user";
@@ -74,14 +74,14 @@ export const Top: React.FC = () => {
               収集したログはすべて匿名化され、学術研究目的にのみ利用されます。
             </p>
             <p>
-              以上に同意していただける方は、以下の入力欄に「{referrer}ID」を入力し、
+              以上に同意していただける方は、以下の入力欄に「{referrerID}」を入力し、
               「タスクを開始する」ボタンをクリックしてタスクを開始してください。
             </p>
           </div>
           <form className="mt-8 px-36" onSubmit={handleSubmit(onSubmit)}>
             <div className="mx-auto mt-16">
               <label htmlFor="external-id" className="block text-sm font-medium text-gray-700">
-                {referrer}ID（IDは半角英数字と記号 (-_) を用いて入力してください）
+                {referrerID}（半角英数字と記号 (-_) を用いて入力してください）
               </label>
               <input
                 id="external-id"
@@ -89,12 +89,12 @@ export const Top: React.FC = () => {
                   formEffect && "animate-[wiggle_1s_ease-in-out]"
                 } w-full py-2 px-3 mt-1 border border-gray-400 focus:border-indigo-500 shadow-sm text-sm rounded-md `}
                 type="text"
-                placeholder={`${referrer}ID`}
+                placeholder={`${referrerID}`}
                 {...register("externalID", { required: true })}
               />
-              {errors.externalID && <div className="text-red-400 text-sm">{`${referrer}IDを入力してください`}</div>}
+              {errors.externalID && <div className="text-red-400 text-sm">{`${referrerID}を入力してください`}</div>}
               <p className="invisible mt-2 text-sm text-pink-600 peer-invalid:visible">
-                {referrer}IDは半角英数字と記号 (-_) を用いて入力してください
+                {referrerID}は半角英数字と記号 (-_) を用いて入力してください
               </p>
             </div>
             <div className="mt-16 mb-32 text-center">
