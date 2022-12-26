@@ -7,6 +7,7 @@ import { PostEnquete } from "../pages/PostEnquete";
 import { Task } from "../pages/Task";
 import { Search } from "../pages/Search";
 import { Code } from "../pages/Code";
+import { Error } from "../pages/Error";
 import { referrer } from "../lib/config";
 
 const Router: React.FC = () => {
@@ -51,6 +52,7 @@ const Router: React.FC = () => {
         <Route path="/task" element={<Task />} />
         <Route path="/search" element={<Search />} />
         <Route path="/code" element={<Code />} />
+        <Route path="/error" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );

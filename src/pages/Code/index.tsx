@@ -6,25 +6,29 @@ import { referrer } from "../../lib/config";
 import { userState } from "../../lib/store/user";
 import markdownStyle from "../../styles/markdown.module.css";
 import { UserInfo } from "../../types";
+import { Error } from "../Error";
 
 export const Code: React.FC = () => {
+  const user = useRecoilValue<UserInfo>(userState);
+
+  const [code, setCode] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
   const showTipOnCopied = () => {
     setVisible(true);
     setTimeout(() => setVisible(false), 1000);
   };
 
-  const user = useRecoilValue<UserInfo>(userState);
-
-  const [code, setCode] = useState<number>(0);
   useEffect(() => {
     document.title = "完了コード";
     (async () => {
       const code = await getCompletionCode(user.id);
       setCode(code);
     })();
-    window.addEventListener("beforeunload", () => localStorage.clear());
   }, [user]);
+
+  if (!user.id || code === 0) {
+    return <Error />;
+  }
 
   return (
     <div>

@@ -7,6 +7,7 @@ import { assignmentState } from "../../lib/store/assignment";
 import { Assignment, TaskInfo, UserInfo } from "../../types";
 import { createAnswer, getTaskInfo } from "../../lib/api";
 import { userState } from "../../lib/store/user";
+import { Error } from "../Error";
 
 const URL_PATTERN = /^https?:\/\/.+\..+/;
 
@@ -72,6 +73,10 @@ export const Task: React.FC = () => {
 
   if (!task) {
     return <></>;
+  }
+
+  if (!assignment.taskId || !assignment.condition) {
+    return <Error />;
   }
 
   return (
