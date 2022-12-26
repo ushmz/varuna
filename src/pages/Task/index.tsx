@@ -49,15 +49,13 @@ export const Task: React.FC = () => {
       return "検索を開始してください";
     } else if (answeredURL.length < 1) {
       return "回答を入力してください";
-    } else if (!URL_PATTERN.test(answeredURL)) {
+    } else if (!isValidURL) {
       return "有効なURLを入力してください";
     }
     return "";
   };
 
   const onSubmitAnswer = async () => {
-    window.onbeforeunload = null;
-    console.log(window.onbeforeunload);
     if (!submissionLocked) {
       setSubmissionLocked(true);
       await createAnswer(user.token, {
@@ -149,12 +147,7 @@ export const Task: React.FC = () => {
         </div>
         <div className="mt-32 text-right">
           {isSERPClicked && isValidURL ? (
-            <div
-              onClick={() => {
-                window.onbeforeunload = null;
-                onSubmitAnswer();
-              }}
-            >
+            <div onClick={() => onSubmitAnswer()}>
               <NavigationButton ready href="/enquete/post" title="事後アンケート" />
             </div>
           ) : (
