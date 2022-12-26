@@ -25,7 +25,7 @@ const Router: React.FC = () => {
   }
 
   const userAgent = window.navigator.userAgent.toLowerCase();
-  if (userAgent.indexOf("msie") !== -1 || userAgent.indexOf("trident") !== -1 || userAgent.indexOf("rv:") > -1) {
+  if (userAgent.indexOf("msie") !== -1 || userAgent.indexOf("trident") !== -1) {
     return (
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="m-3">このページはInternet explorerでの動作を保証していません。</div>
