@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import markdownStyle from "../../styles/markdown.module.css";
 import StepCard from "../../components/StepCard";
@@ -13,6 +13,14 @@ export const PostEnquete: React.FC = () => {
 
   const user = useRecoilValue<UserInfo>(userState);
   const assignment = useRecoilValue<Assignment>(assignmentState);
+
+  useEffect(() => {
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      e.returnValue = "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+      return "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+    };
+  }, []);
 
   return (
     <div>

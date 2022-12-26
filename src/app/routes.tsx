@@ -7,6 +7,7 @@ import { PostEnquete } from "../pages/PostEnquete";
 import { Task } from "../pages/Task";
 import { Search } from "../pages/Search";
 import { Code } from "../pages/Code";
+import { Error } from "../pages/Error";
 import { referrer } from "../lib/config";
 
 const Router: React.FC = () => {
@@ -25,7 +26,7 @@ const Router: React.FC = () => {
   }
 
   const userAgent = window.navigator.userAgent.toLowerCase();
-  if (userAgent.indexOf("msie") !== -1 || userAgent.indexOf("trident") !== -1 || userAgent.indexOf("rv:") > -1) {
+  if (userAgent.indexOf("msie") !== -1 || userAgent.indexOf("trident") !== -1) {
     return (
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="m-3">このページはInternet explorerでの動作を保証していません。</div>
@@ -51,6 +52,7 @@ const Router: React.FC = () => {
         <Route path="/task" element={<Task />} />
         <Route path="/search" element={<Search />} />
         <Route path="/code" element={<Code />} />
+        <Route path="/error" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );

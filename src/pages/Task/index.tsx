@@ -7,14 +7,17 @@ import { assignmentState } from "../../lib/store/assignment";
 import { Assignment, TaskInfo, UserInfo } from "../../types";
 import { createAnswer, getTaskInfo } from "../../lib/api";
 import { userState } from "../../lib/store/user";
+import { Error } from "../Error";
 
 const URL_PATTERN = /^https?:\/\/.+\..+/;
 
 export const Task: React.FC = () => {
   const [isSERPClicked, setClicked] = useState<boolean>(false);
+  const [isValidURL, setIsValidURL] = useState<boolean>(false);
   const [answeredURL, setURL] = useState<string>("");
   const [answeredReason, setReason] = useState<string>("");
   const [task, setTask] = useState<TaskInfo>();
+  const [submissionLocked, setSubmissionLocked] = useState<boolean>(false);
 
   const assignment = useRecoilValue<Assignment>(assignmentState);
   const user = useRecoilValue<UserInfo>(userState);
@@ -27,9 +30,19 @@ export const Task: React.FC = () => {
     })();
   }, [assignment.taskId]);
 
-  const ready = () => {
-    return isSERPClicked && URL_PATTERN.test(answeredURL);
-  };
+  useEffect(() => {
+    setIsValidURL(URL_PATTERN.test(answeredURL));
+  }, [answeredURL]);
+
+  useEffect(() => {
+    isSERPClicked && isValidURL
+      ? (window.onbeforeunload = null)
+      : (window.onbeforeunload = function (e) {
+          e.preventDefault();
+          e.returnValue = "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+          return "このページを離れると、タスクを再開することはできません。このページを離れますか？";
+        });
+  }, [isSERPClicked, isValidURL]);
 
   const wanrMsg = () => {
     if (!isSERPClicked) {
@@ -42,19 +55,29 @@ export const Task: React.FC = () => {
     return "";
   };
 
+  const onSubmitAnswer = async () => {
+    window.onbeforeunload = null;
+    console.log(window.onbeforeunload);
+    if (!submissionLocked) {
+      setSubmissionLocked(true);
+      await createAnswer(user.token, {
+        userId: user.id,
+        taskId: assignment.taskId,
+        condition: assignment.condition,
+        answer: answeredURL,
+        reason: answeredReason,
+      });
+      setSubmissionLocked(false);
+    }
+  };
+
   if (!task) {
     return <></>;
   }
 
-  const onSubmitAnswer = async () => {
-    await createAnswer(user.token, {
-      userId: user.id,
-      taskId: assignment.taskId,
-      condition: assignment.condition,
-      answer: answeredURL,
-      reason: answeredReason,
-    });
-  };
+  if (!assignment.taskId || !assignment.condition) {
+    return <Error />;
+  }
 
   return (
     <div>
@@ -65,6 +88,18 @@ export const Task: React.FC = () => {
         <div className={markdownStyle["markdown"]}>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
+          <ul>
+            <li>このページにある「検索を始める」ボタンをクリックし、検索を開始してください。</li>
+            <li>
+              表示された検索結果のリストを参考にして、実際に利用したい{task.topic}サービスを<strong>1つ</strong>
+              決定してください。
+            </li>
+            <li>
+              利用したいサービスが決まったらウェブ検索を終了し、 このページの末尾にある解答欄に選択した
+              <strong>ウェブサービスのURL</strong>と、そのサービスを選んだ
+              <strong>理由</strong>を入力してください。
+            </li>
+          </ul>
           <h2>注意事項</h2>
           <ul>
             <li>「検索を始める」ボタンをクリックすると、新しいタブで検索結果リストが表示されます。</li>
@@ -74,12 +109,9 @@ export const Task: React.FC = () => {
             </li>
             <li>制限時間はありませんので、納得のいくまで検索を行ってください。</li>
             <li>
-              回答が決まったら、選択した<strong>ウェブサービスのURL</strong>と、そのサービスを選んだ
-              <strong>理由</strong>を以下の入力欄に入力し「次へ」のボタンから事後アンケートに進んでください。
+              ウェブ検索が終了したら、検索結果リストは<strong>閉じて</strong>ください。
             </li>
-            <li>
-              ウェブ検索が終了したら、検索結果画面は<strong>閉じて</strong>ください。
-            </li>
+            <li>回答の入力が完了したら、「次へ」のボタンから事後アンケートに進んでください。</li>
             <li>
               検索タスク中のページ閲覧ログを収集させていただきます。収集したログはすべて匿名化され、学術研究目的にのみ利用されます。
             </li>
@@ -116,13 +148,18 @@ export const Task: React.FC = () => {
           </div>
         </div>
         <div className="mt-32 text-right">
-          {ready() ? (
-            <div onClick={() => onSubmitAnswer()}>
-              <NavigationButton href="/enquete/post" ready={ready()} title="事後アンケート" />
+          {isSERPClicked && isValidURL ? (
+            <div
+              onClick={() => {
+                window.onbeforeunload = null;
+                onSubmitAnswer();
+              }}
+            >
+              <NavigationButton ready href="/enquete/post" title="事後アンケート" />
             </div>
           ) : (
             <div className="tooltip tooltip-warning" data-tip={wanrMsg()}>
-              <NavigationButton href="" ready={ready()} title="事後アンケート" />
+              <NavigationButton ready={false} href="" title="事後アンケート" />
             </div>
           )}
         </div>
