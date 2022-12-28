@@ -19,6 +19,12 @@ export const Code: React.FC = () => {
   };
 
   useEffect(() => {
+    window.onbeforeunload = function () {
+      localStorage.clear();
+    };
+  }, []);
+
+  useEffect(() => {
     document.title = "完了コード";
     (async () => {
       const code = await getCompletionCode(user.id);
