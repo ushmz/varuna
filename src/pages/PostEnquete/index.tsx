@@ -47,7 +47,10 @@ export const PostEnquete: React.FC = () => {
           <a target="_blank" rel="noreferrer" href={`${enquete[assignment.condition]}${user.id}`}>
             <button
               className={`btn ${isEnqueteClicked ? "btn-disabled" : "btn-primary"}`}
-              onClick={() => setClicked(true)}
+              onClick={() => {
+                setClicked(true);
+                window.onbeforeunload = null;
+              }}
             >
               アンケートページへ
             </button>
