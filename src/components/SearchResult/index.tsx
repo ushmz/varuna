@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./SearchResult.module.css";
 
 type SearchResultProps = {
@@ -10,6 +11,7 @@ type SearchResultProps = {
 };
 
 export const SearchResult: React.FC<SearchResultProps> = (props) => {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState<boolean>(false);
   const showTipOnCopied = () => {
     setVisible(true);
@@ -22,7 +24,7 @@ export const SearchResult: React.FC<SearchResultProps> = (props) => {
         <div className={styles["url"]}>{props.url}</div>
         <div className={styles["copy-text-container"]}>
           <div className={visible ? "visible" : "invisible"}>
-            <div className="tooltip tooltip-open tooltip-top" data-tip="URLをコピーしました" />
+            <div className="tooltip tooltip-open tooltip-top" data-tip={t("base.copied")} />
           </div>
           <span
             className={styles["copy-text"]}
@@ -31,7 +33,7 @@ export const SearchResult: React.FC<SearchResultProps> = (props) => {
               showTipOnCopied();
             }}
           >
-            URLをコピー
+            {t("base.copy")}
           </span>
         </div>
       </span>
