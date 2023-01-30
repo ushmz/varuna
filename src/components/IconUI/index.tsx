@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { SearchResult } from "../SearchResult";
 import style from "./Icon.module.css";
@@ -18,14 +19,15 @@ type IconUIProps = {
 // };
 
 export const IconUI: React.FC<IconUIProps> = (props) => {
+  const { t } = useTranslation();
   return (
     <div onMouseEnter={props.sendHoverLog}>
       <SearchResult title={props.title} url={props.url} snippet={props.snippet} sendClickLog={props.sendClickLog} />
       <div className={style["nudge"]}>
         <h4 className={style["suggestion-title"]}>
-          上のページを閲覧すると，以下のウェブサイトでも
+          {t("icon.description_line1")}
           <br />
-          上記ページの閲覧履歴を記録・分析される可能性があります
+          {t("icon.description_line2")}
         </h4>
         <div className={style["icons-container"]}>
           {props.icons?.map((src, idx) => (

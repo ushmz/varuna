@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { SearchResult } from "../SearchResult";
 import style from "./Ratio.module.css";
@@ -18,15 +19,16 @@ type RatioUIProps = {
 };
 
 export const RatioUI: React.FC<RatioUIProps> = (props) => {
+  const { t } = useTranslation();
   const total = props.ratio?.total || 0;
   return (
     <div onMouseEnter={props.sendHoverLog}>
       <SearchResult title={props.title} url={props.url} snippet={props.snippet} sendClickLog={props.sendClickLog} />
       <div className={style["nudge"]}>
         <h4 className={style["suggestion-title"]}>
-          上のページを閲覧すると，以下のウェブサイトでも
+          {t("description_line1")}
           <br />
-          上記ページの閲覧履歴を記録・分析される可能性があります（{total}件）
+          {`${t("ratio.description_line2")}（${total} ${t("ratio.count")}）`}
         </h4>
         <div className={"flex"}>
           {props.ratio &&
