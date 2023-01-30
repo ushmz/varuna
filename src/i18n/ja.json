@@ -1,0 +1,22 @@
+{
+  "base": {
+    "copy": "URLをコピー",
+    "copied": "URLをコピーしました"
+  },
+  "icon": {
+    "description_line1": "上のページを閲覧すると，以下のウェブサイトでも",
+    "description_line2": "上記ページの閲覧履歴を記録・分析される可能性があります"
+  },
+  "ratio": {
+    "description_line1": "上のページを閲覧すると，以下のウェブサイトでも",
+    "description_line2": "上記ページの閲覧履歴を記録・分析される可能性があります",
+    "count": "件"
+  },
+  "purpose": {
+    "service": "サービスの提供・改善",
+    "marketing": "広告宣伝",
+    "profiling": "顧客分析",
+    "unspecified": "記載なし",
+    "description": "上のウェブページでは、以下の目的であなたの情報を取得します。"
+  }
+}

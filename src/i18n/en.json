@@ -1,0 +1,22 @@
+{
+  "base": {
+    "copy": "Copy URL",
+    "copied": "URL copied"
+  },
+  "icon": {
+    "description_line1": "If you visit the above webpage, your browsing history on the webpage",
+    "description_line2": "can be also shared to the following webpages."
+  },
+  "ratio": {
+    "description_line1": "If you visit the above webpage, your browsing history on the webpage",
+    "description_line2": "can be also shared to websites in the following categories",
+    "count": "websites"
+  },
+  "purpose": {
+    "service": "Provide service and maintain site",
+    "marketing": "Marketing",
+    "profiling": "Profiling",
+    "unspecified": "Unspecified",
+    "description": "The above web page collects your information for the following purposes."
+  }
+}
