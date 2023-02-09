@@ -26,19 +26,21 @@ export const RatioUI: React.FC<RatioUIProps> = (props) => {
       <SearchResult title={props.title} url={props.url} snippet={props.snippet} sendClickLog={props.sendClickLog} />
       <div className={style["nudge"]}>
         <h4 className={style["suggestion-title"]}>
-          {t("description_line1")}
+          {t("ratio.description_line1")}
           <br />
           {`${t("ratio.description_line2")}（${total} ${t("ratio.count")}）`}
         </h4>
         <div className={"flex"}>
           {props.ratio &&
-            props.ratio.distribution.map((v, idx) => (
-              <div key={idx} className={style["ratio-column"]}>
-                {/* Set className="d-flex justify-content-center" to centerize */}
-                <div className={style["ratio-category"]}>{v.category}</div>
-                <div className={style["ratio"]}>{`${Math.ceil((v.count / total) * 1000) / 10}%（${v.count} 件）`}</div>
-              </div>
-            ))}
+            props.ratio.distribution.map((v, idx) => {
+              const count = Math.ceil((v.count / total) * 1000) / 10;
+              return (
+                <div key={idx} className={style["ratio-column"]}>
+                  <div className={style["ratio-category"]}>{v.category}</div>
+                  <div className={style["ratio"]}>{`${count}%（${v.count} ${t("ratio.count")}）`}</div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
